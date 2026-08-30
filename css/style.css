@@ -1,0 +1,1540 @@
+/* =========================================================
+RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  }
+
+:root {
+--bg: #030712;
+--blue: #3b82f6;
+--blue-light: #60a5fa;
+--blue-dark: #1d4ed8;
+
+--green: #22c55e;
+--red: #ef4444;
+
+--text: #e8f0ff;
+--muted: #8190a8;
+
+--paper: #f8f4ea;
+--ink: #263244;
+
+}
+
+html,
+body {
+width: 100%;
+height: 100%;
+}
+
+body {
+font-family: "Inter", sans-serif;
+
+color: var(--text);
+
+overflow: hidden;
+
+background:
+    radial-gradient(
+        circle at 50% 0%,
+        rgba(37, 99, 235, 0.16),
+        transparent 38%
+    ),
+    radial-gradient(
+        circle at 10% 90%,
+        rgba(29, 78, 216, 0.08),
+        transparent 30%
+    ),
+    var(--bg);
+
+}
+
+button {
+font: inherit;
+}
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+
+.background {
+position: fixed;
+inset: 0;
+
+overflow: hidden;
+
+pointer-events: none;
+
+z-index: 0;
+
+}
+
+.grid {
+position: absolute;
+inset: -50%;
+
+opacity: 0.16;
+
+background-image:
+    linear-gradient(
+        rgba(96, 165, 250, 0.07) 1px,
+        transparent 1px
+    ),
+    linear-gradient(
+        90deg,
+        rgba(96, 165, 250, 0.07) 1px,
+        transparent 1px
+    );
+
+background-size: 55px 55px;
+
+transform:
+    perspective(700px)
+    rotateX(62deg);
+
+transform-origin: center bottom;
+
+}
+
+.glow {
+position: absolute;
+
+width: 550px;
+height: 550px;
+
+left: 50%;
+top: 50%;
+
+transform: translate(-50%, -50%);
+
+background:
+    radial-gradient(
+        circle,
+        rgba(37, 99, 235, 0.12),
+        transparent 68%
+    );
+
+filter: blur(20px);
+
+}
+
+.particles {
+position: absolute;
+inset: 0;
+}
+
+.particle {
+position: absolute;
+
+width: 2px;
+height: 2px;
+
+border-radius: 50%;
+
+background: rgba(147, 197, 253, 0.7);
+
+animation:
+    particleFloat
+    linear
+    infinite;
+
+}
+
+@keyframes particleFloat {
+
+from {
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+15% {
+    opacity: 0.6;
+}
+
+85% {
+    opacity: 0.6;
+}
+
+to {
+    transform: translateY(-120px);
+    opacity: 0;
+}
+
+}
+
+/* =========================================================
+APP
+========================================================= */
+
+#app {
+position: relative;
+
+z-index: 2;
+
+width: 100%;
+height: 100%;
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+padding: 20px;
+
+}
+
+.app-inner {
+position: relative;
+
+width: 100%;
+max-width: 450px;
+
+height: min(860px, 100vh);
+
+display: flex;
+
+flex-direction: column;
+
+justify-content: center;
+align-items: center;
+
+}
+
+/* =========================================================
+TOP LABEL
+========================================================= */
+
+.top-label {
+position: absolute;
+
+top: 24px;
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+color: rgba(191, 219, 254, 0.55);
+
+font-size: 10px;
+
+font-weight: 600;
+
+letter-spacing: 3px;
+
+text-transform: uppercase;
+
+}
+
+.top-label::before,
+.top-label::after {
+content: "";
+
+width: 22px;
+height: 1px;
+
+background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(96, 165, 250, 0.5)
+    );
+
+}
+
+.top-label::after {
+transform: rotate(180deg);
+}
+
+/* =========================================================
+CARD STACK
+========================================================= */
+
+#card-stack {
+position: relative;
+
+width: 100%;
+
+height: min(650px, 73vh);
+
+min-height: 450px;
+
+margin-top: 20px;
+
+}
+
+.tinder-card {
+position: absolute;
+
+inset: 0;
+
+overflow: hidden;
+
+border-radius: 30px;
+
+background: #0b1220;
+
+border: 1px solid rgba(96, 165, 250, 0.18);
+
+box-shadow:
+    0 35px 80px rgba(0, 0, 0, 0.65),
+    0 0 80px rgba(37, 99, 235, 0.08);
+
+cursor: grab;
+
+touch-action: none;
+
+will-change: transform;
+
+}
+
+.tinder-card:active {
+cursor: grabbing;
+}
+
+.tinder-card img {
+width: 100%;
+height: 100%;
+
+object-fit: cover;
+
+pointer-events: none;
+
+-webkit-user-drag: none;
+
+filter:
+    saturate(0.92)
+    contrast(1.02);
+
+}
+
+.tinder-card::after {
+content: "";
+
+position: absolute;
+
+inset: 0;
+
+pointer-events: none;
+
+background:
+    linear-gradient(
+        180deg,
+        rgba(3, 7, 18, 0.05) 20%,
+        rgba(3, 7, 18, 0.08) 45%,
+        rgba(3, 7, 18, 0.9) 100%
+    );
+
+}
+
+/* =========================================================
+CARD CAPTION
+========================================================= */
+
+.caption {
+position: absolute;
+
+z-index: 3;
+
+left: 0;
+right: 0;
+bottom: 0;
+
+padding: 80px 28px 28px;
+
+pointer-events: none;
+
+}
+
+.caption small {
+display: block;
+
+color: rgba(191, 219, 254, 0.65);
+
+font-size: 9px;
+
+font-weight: 600;
+
+text-transform: uppercase;
+
+letter-spacing: 3px;
+
+margin-bottom: 7px;
+
+}
+
+.caption span {
+display: block;
+
+font-family:
+    "Cormorant Garamond",
+    serif;
+
+color: white;
+
+font-size: 31px;
+
+line-height: 1.05;
+
+font-weight: 600;
+
+}
+
+/* =========================================================
+SWIPE BADGES
+========================================================= */
+
+.badge {
+position: absolute;
+
+z-index: 10;
+
+top: 30px;
+
+width: 82px;
+height: 82px;
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+border-radius: 50%;
+
+opacity: 0;
+
+pointer-events: none;
+
+backdrop-filter: blur(12px);
+
+font-family:
+    "Times New Roman",
+    serif;
+
+font-size: 43px;
+
+}
+
+.badge.like {
+left: 25px;
+
+color: var(--green);
+
+border: 2px solid rgba(34, 197, 94, 0.8);
+
+background: rgba(5, 46, 22, 0.6);
+
+box-shadow:
+    0 0 40px rgba(34, 197, 94, 0.25);
+
+}
+
+.badge.like::before {
+content: "♥";
+}
+
+.badge.nope {
+right: 25px;
+
+color: var(--red);
+
+border: 2px solid rgba(239, 68, 68, 0.8);
+
+background: rgba(69, 10, 10, 0.6);
+
+box-shadow:
+    0 0 40px rgba(239, 68, 68, 0.25);
+
+}
+
+.badge.nope::before {
+content: "♥";
+}
+
+.badge.nope::after {
+content: "";
+
+position: absolute;
+
+width: 56px;
+height: 2px;
+
+background: currentColor;
+
+transform: rotate(-45deg);
+
+box-shadow:
+    0 0 12px currentColor;
+
+}
+
+/* =========================================================
+FINAL SCREEN
+========================================================= */
+
+#final-screen,
+#timer-reveal {
+display: none;
+
+width: 100%;
+height: 100%;
+
+align-items: center;
+justify-content: center;
+
+animation:
+    screenIn
+    0.8s
+    cubic-bezier(0.16, 1, 0.3, 1);
+
+}
+
+@keyframes screenIn {
+
+from {
+    opacity: 0;
+    transform:
+        translateY(25px)
+        scale(0.97);
+}
+
+to {
+    opacity: 1;
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+}
+
+/* =========================================================
+ENVELOPE
+========================================================= */
+
+.envelope-scene {
+width: 100%;
+max-width: 420px;
+
+display: flex;
+
+flex-direction: column;
+
+align-items: center;
+
+}
+
+.envelope-title {
+text-align: center;
+
+margin-bottom: 28px;
+
+}
+
+.envelope-title small {
+display: block;
+
+color: var(--blue-light);
+
+font-size: 9px;
+
+font-weight: 600;
+
+letter-spacing: 4px;
+
+text-transform: uppercase;
+
+margin-bottom: 9px;
+
+}
+
+.envelope-title h1 {
+font-family:
+"Cormorant Garamond",
+serif;
+
+font-size: 38px;
+
+font-weight: 600;
+
+}
+
+.envelope-title p {
+margin-top: 6px;
+
+color: #718096;
+
+font-size: 12px;
+
+}
+
+/* =========================================================
+ENVELOPE CONTAINER
+========================================================= */
+
+.envelope-container {
+width: 100%;
+
+perspective: 1200px;
+
+}
+
+/* =========================================================
+ENVELOPE
+========================================================= */
+
+.envelope {
+position: relative;
+
+width: 100%;
+
+aspect-ratio: 1.55;
+
+border-radius: 8px;
+
+box-shadow:
+    0 40px 70px rgba(0, 0, 0, 0.55),
+    0 0 60px rgba(37, 99, 235, 0.08);
+
+transform-style: preserve-3d;
+
+}
+
+/* =========================================================
+ENVELOPE BACK
+========================================================= */
+
+.envelope-back {
+position: absolute;
+
+inset: 0;
+
+border-radius: 8px;
+
+background:
+    linear-gradient(
+        145deg,
+        #172c49,
+        #0d192c
+    );
+
+border:
+    1px solid
+    rgba(96, 165, 250, 0.2);
+
+overflow: hidden;
+
+}
+
+/* =========================================================
+ENVELOPE FRONT
+========================================================= */
+
+.envelope-front {
+position: absolute;
+
+inset: 0;
+
+z-index: 5;
+
+overflow: hidden;
+
+border-radius: 8px;
+
+pointer-events: none;
+
+}
+
+/* =========================================================
+ENVELOPE FOLDS
+========================================================= */
+
+.envelope-fold {
+position: absolute;
+
+z-index: 3;
+
+}
+
+.envelope-fold.left {
+left: 0;
+bottom: 0;
+
+width: 50%;
+height: 100%;
+
+clip-path:
+    polygon(
+        0 0,
+        100% 100%,
+        0 100%
+    );
+
+background:
+    linear-gradient(
+        145deg,
+        #12243d,
+        #0c1728
+    );
+
+}
+
+.envelope-fold.right {
+right: 0;
+bottom: 0;
+
+width: 50%;
+height: 100%;
+
+clip-path:
+    polygon(
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+background:
+    linear-gradient(
+        215deg,
+        #12243d,
+        #0c1728
+    );
+
+}
+
+.envelope-fold.bottom {
+left: 0;
+bottom: 0;
+
+width: 100%;
+height: 72%;
+
+clip-path:
+    polygon(
+        0 100%,
+        50% 25%,
+        100% 100%
+    );
+
+background:
+    linear-gradient(
+        180deg,
+        #18304f,
+        #0e1c30
+    );
+
+z-index: 4;
+
+}
+
+/* =========================================================
+ENVELOPE FLAP
+========================================================= */
+
+.envelope-flap {
+position: absolute;
+
+top: 0;
+left: 0;
+
+width: 100%;
+height: 62%;
+
+padding: 0;
+
+border: none;
+
+background:
+    linear-gradient(
+        145deg,
+        #1d395e,
+        #102039
+    );
+
+clip-path:
+    polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
+
+transform-origin: top center;
+
+z-index: 10;
+
+cursor: pointer;
+
+transition:
+    transform
+    0.85s
+    cubic-bezier(
+        0.16,
+        1,
+        0.3,
+        1
+    );
+
+filter:
+    drop-shadow(
+        0 5px 8px
+        rgba(0, 0, 0, 0.3)
+    );
+
+}
+
+.envelope-flap.open {
+transform:
+rotateX(180deg);
+
+pointer-events: none;
+
+}
+
+/* =========================================================
+SEAL
+========================================================= */
+
+.seal {
+position: absolute;
+
+left: 50%;
+top: 38%;
+
+transform:
+    translate(-50%, -50%);
+
+width: 60px;
+height: 60px;
+
+display: flex;
+
+justify-content: center;
+align-items: center;
+
+border-radius: 50%;
+
+color: white;
+
+font-family:
+    "Times New Roman",
+    serif;
+
+font-size: 26px;
+
+background:
+    radial-gradient(
+        circle,
+        #60a5fa,
+        #1d4ed8
+    );
+
+box-shadow:
+    0 8px 25px
+    rgba(29, 78, 216, 0.45),
+    inset 0 0 0 1px
+    rgba(255,255,255,0.25);
+
+transition:
+    transform 0.3s ease;
+
+}
+
+.envelope-flap:hover .seal {
+transform:
+translate(-50%, -50%)
+scale(1.08);
+}
+
+/* =========================================================
+ENVELOPE INSTRUCTION
+========================================================= */
+
+.envelope-instruction {
+margin-top: 25px;
+
+text-align: center;
+
+color: #7f8ea6;
+
+font-size: 11px;
+
+letter-spacing: 1px;
+
+}
+
+.envelope-instruction strong {
+display: block;
+
+color: #b7cdf0;
+
+font-size: 13px;
+
+margin-bottom: 4px;
+
+}
+
+/* =========================================================
+LETTER MODAL
+========================================================= */
+
+.letter-modal {
+position: fixed;
+
+inset: 0;
+
+z-index: 1000;
+
+display: none;
+
+justify-content: center;
+align-items: center;
+
+padding: 25px;
+
+background:
+    radial-gradient(
+        circle at center,
+        rgba(30, 64, 175, 0.13),
+        transparent 60%
+    ),
+    rgba(1, 5, 15, 0.92);
+
+backdrop-filter: blur(18px);
+
+}
+
+.letter-modal.active {
+display: flex;
+
+animation:
+    modalIn
+    0.5s
+    ease;
+
+}
+
+@keyframes modalIn {
+
+from {
+    opacity: 0;
+}
+
+to {
+    opacity: 1;
+}
+
+}
+
+/* =========================================================
+REAL PAPER
+========================================================= */
+
+.letter-modal-content {
+position: relative;
+
+width: min(780px, 100%);
+
+max-height: 92vh;
+
+overflow-y: auto;
+overflow-x: hidden;
+
+padding:
+    65px
+    75px
+    60px;
+
+background:
+    radial-gradient(
+        ellipse at 50% 0%,
+        rgba(255,255,255,0.55),
+        transparent 45%
+    ),
+    linear-gradient(
+        90deg,
+        rgba(0,0,0,0.035),
+        transparent 8%,
+        transparent 92%,
+        rgba(0,0,0,0.035)
+    ),
+    var(--paper);
+
+color: var(--ink);
+
+box-shadow:
+    0 50px 120px
+    rgba(0,0,0,0.65);
+
+animation:
+    paperIn
+    0.65s
+    cubic-bezier(
+        0.16,
+        1,
+        0.3,
+        1
+    );
+
+}
+
+@keyframes paperIn {
+
+from {
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        rotateX(8deg)
+        scale(0.96);
+}
+
+to {
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        rotateX(0)
+        scale(1);
+}
+
+}
+
+/* =========================================================
+PAPER TEXTURE
+========================================================= */
+
+.letter-modal-content::after {
+content: "";
+
+position: absolute;
+
+inset: 0;
+
+pointer-events: none;
+
+opacity: 0.35;
+
+background:
+    repeating-linear-gradient(
+        0deg,
+        transparent 0,
+        transparent 37px,
+        rgba(40,55,70,0.08) 38px
+    );
+
+}
+
+/* =========================================================
+RED MARGIN
+========================================================= */
+
+.letter-modal-content::before {
+content: "";
+
+position: absolute;
+
+top: 0;
+bottom: 0;
+
+left: 46px;
+
+width: 1px;
+
+background:
+    rgba(185,78,78,0.2);
+
+z-index: 2;
+
+}
+
+/* =========================================================
+LETTER HEADER
+========================================================= */
+
+.letter-header {
+position: relative;
+
+z-index: 3;
+
+text-align: center;
+
+margin-bottom: 38px;
+
+}
+
+.letter-symbol {
+font-family:
+"Times New Roman",
+serif;
+
+color: #1d4ed8;
+
+font-size: 30px;
+
+margin-bottom: 8px;
+
+}
+
+.letter-header h2 {
+font-family:
+"Cormorant Garamond",
+serif;
+
+color: #1e3a8a;
+
+font-size: 43px;
+
+font-weight: 600;
+
+}
+
+.letter-line {
+width: 80px;
+height: 1px;
+
+margin: 14px auto 0;
+
+background: #94a3b8;
+
+}
+
+/* =========================================================
+LETTER TEXT
+========================================================= */
+
+.letter-full-text {
+position: relative;
+
+z-index: 3;
+
+white-space: pre-wrap;
+
+font-family:
+    "Playfair Display",
+    serif;
+
+font-size: 19px;
+
+line-height: 2.05;
+
+color: #263244;
+
+text-align: left;
+
+}
+
+/* =========================================================
+SIGNATURE
+========================================================= */
+
+.letter-signature {
+position: relative;
+
+z-index: 3;
+
+margin-top: 45px;
+
+text-align: right;
+
+font-family:
+    "Cormorant Garamond",
+    serif;
+
+font-size: 27px;
+
+font-style: italic;
+
+color: #334155;
+
+}
+
+/* =========================================================
+LETTER BUTTONS
+========================================================= */
+
+.letter-actions {
+position: relative;
+
+z-index: 4;
+
+margin-top: 45px;
+
+display: flex;
+
+gap: 12px;
+
+}
+
+.letter-button {
+flex: 1;
+
+border: none;
+
+padding: 14px 20px;
+
+border-radius: 6px;
+
+cursor: pointer;
+
+font-size: 12px;
+
+font-weight: 600;
+
+letter-spacing: 0.8px;
+
+transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+}
+
+.letter-button:hover {
+transform: translateY(-2px);
+}
+
+.letter-button.primary {
+color: white;
+
+background: #1d4ed8;
+
+box-shadow:
+    0 8px 25px
+    rgba(29,78,216,0.25);
+
+}
+
+
+/* =========================================================
+TIMER
+========================================================= */
+
+.timer-content {
+width: 100%;
+
+max-width: 600px;
+
+text-align: center;
+
+}
+
+.timer-content small {
+display: block;
+
+color: var(--blue-light);
+
+font-size: 9px;
+
+font-weight: 600;
+
+letter-spacing: 4px;
+
+text-transform: uppercase;
+
+margin-bottom: 12px;
+
+}
+
+.timer-content h2 {
+font-family:
+"Cormorant Garamond",
+serif;
+
+font-size: 54px;
+
+line-height: 1;
+
+font-weight: 600;
+
+background:
+    linear-gradient(
+        135deg,
+        #dbeafe,
+        #60a5fa,
+        #2563eb
+    );
+
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+
+}
+
+.timer-subtitle {
+color: #718096;
+
+font-size: 12px;
+
+margin-top: 12px;
+
+margin-bottom: 38px;
+
+}
+
+.timer-grid-final {
+display: grid;
+
+grid-template-columns:
+    repeat(3, 1fr);
+
+gap: 12px;
+
+}
+
+.timer-item-final {
+padding: 23px 10px;
+
+border-radius: 14px;
+
+background:
+    linear-gradient(
+        145deg,
+        rgba(15,32,57,0.8),
+        rgba(7,17,31,0.8)
+    );
+
+border:
+    1px solid
+    rgba(96,165,250,0.14);
+
+box-shadow:
+    0 15px 35px
+    rgba(0,0,0,0.25);
+
+}
+
+.timer-item-final .num {
+font-size: 31px;
+
+font-weight: 600;
+
+color: #dbeafe;
+
+}
+
+.timer-item-final .lbl {
+margin-top: 5px;
+
+color: #64748b;
+
+font-size: 8px;
+
+font-weight: 600;
+
+text-transform: uppercase;
+
+letter-spacing: 2px;
+
+}
+
+.timer-footer {
+margin-top: 35px;
+
+color: #60708a;
+
+font-size: 10px;
+
+letter-spacing: 2px;
+
+text-transform: uppercase;
+
+}
+
+.timer-heart {
+display: block;
+
+margin-top: 18px;
+
+color: #60a5fa;
+
+font-family:
+    "Times New Roman",
+    serif;
+
+font-size: 30px;
+
+animation:
+    heartbeat
+    2s
+    ease-in-out
+    infinite;
+
+}
+
+@keyframes heartbeat {
+
+0%,
+100% {
+    transform: scale(1);
+    opacity: 0.75;
+}
+
+50% {
+    transform: scale(1.12);
+    opacity: 1;
+}
+
+}
+
+/* =========================================================
+SCROLLBAR
+========================================================= */
+
+.letter-modal-content::-webkit-scrollbar {
+width: 5px;
+}
+
+.letter-modal-content::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.letter-modal-content::-webkit-scrollbar-thumb {
+background: #94a3b8;
+
+border-radius: 20px;
+
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+#app {
+    padding: 12px;
+}
+
+.top-label {
+    top: 17px;
+}
+
+#card-stack {
+    height: 68vh;
+
+    min-height: 400px;
+}
+
+.tinder-card {
+    border-radius: 24px;
+}
+
+.caption {
+    padding:
+        70px
+        21px
+        22px;
+}
+
+.caption span {
+    font-size: 27px;
+}
+
+.badge {
+    width: 68px;
+    height: 68px;
+
+    top: 20px;
+
+    font-size: 35px;
+}
+
+.badge.nope::after {
+    width: 47px;
+}
+
+.envelope-title {
+    margin-bottom: 22px;
+}
+
+.envelope-title h1 {
+    font-size: 33px;
+}
+
+.letter-modal {
+    padding: 9px;
+}
+
+.letter-modal-content {
+    max-height: 96vh;
+
+    padding:
+        48px
+        25px
+        35px;
+}
+
+.letter-modal-content::before {
+    left: 22px;
+}
+
+.letter-header h2 {
+    font-size: 35px;
+}
+
+.letter-full-text {
+    font-size: 16px;
+
+    line-height: 1.9;
+}
+
+.letter-actions {
+    flex-direction: column;
+}
+
+.timer-content h2 {
+    font-size: 44px;
+}
+
+.timer-grid-final {
+    gap: 8px;
+}
+
+.timer-item-final {
+    padding: 18px 5px;
+}
+
+.timer-item-final .num {
+    font-size: 23px;
+}
+
+.timer-item-final .lbl {
+    font-size: 7px;
+
+    letter-spacing: 1px;
+}
+
+}
+
+@media (max-height: 700px) {
+
+#card-stack {
+    height: 62vh;
+
+    min-height: 350px;
+}
+
+.envelope-title {
+    margin-bottom: 14px;
+}
+
+.envelope-title h1 {
+    font-size: 30px;
+}
+
+.envelope {
+    max-width: 350px;
+
+    margin: auto;
+}
+
+.envelope-instruction {
+    margin-top: 15px;
+}
+
+}
