@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+
+<title>Nossa História</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
+    rel="stylesheet"
+>
+
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<!-- BACKGROUND -->
+
+<div class="background">
+    <div class="grid"></div>
+    <div class="glow"></div>
+    <div class="particles" id="particles"></div>
+</div>
+
+
+<!-- APP -->
+
+<main id="app">
+
+    <div class="app-inner">
+
+        <div class="top-label">
+            nossa história
+        </div>
+
+
+        <!-- CARDS -->
+
+        <div id="card-stack"></div>
+
+
+        <!-- ENVELOPE -->
+
+        <section id="final-screen">
+
+            <div class="envelope-scene">
+
+                <div class="envelope-title">
+
+                    <small>uma última coisa</small>
+
+                    <h1>Para você</h1>
+
+                    <p>
+                        Há algo que eu ainda queria te dizer.
+                    </p>
+
+                </div>
+
+
+                <div class="envelope-container">
+
+                    <div
+                        class="envelope"
+                        id="envelope"
+                    >
+
+                        <!-- FUNDO DO ENVELOPE -->
+
+                        <div class="envelope-back"></div>
+
+
+                        <!-- ABA -->
+
+                        <button
+                            class="envelope-flap"
+                            id="envelopeFlap"
+                            aria-label="Abrir envelope"
+                        >
+
+                            <span class="seal">
+                                ♥
+                            </span>
+
+                        </button>
+
+
+                        <!-- FRENTE -->
+
+                        <div class="envelope-front">
+
+                            <div class="envelope-fold left"></div>
+                            <div class="envelope-fold right"></div>
+                            <div class="envelope-fold bottom"></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="envelope-instruction">
+
+                    <strong>
+                        Abra o envelope
+                    </strong>
+
+                    Toque no selo para continuar
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CARTA -->
+
+        <div
+            class="letter-modal"
+            id="letterModal"
+        >
+
+            <article class="letter-modal-content">
+
+                <div class="letter-header">
+
+                    <div class="letter-symbol">
+                        ♥
+                    </div>
+
+                    <h2>
+                        Para você
+                    </h2>
+
+                    <div class="letter-line"></div>
+
+                </div>
+
+
+                <div
+                    class="letter-full-text"
+                    id="letterFullText"
+                >Muito obrigado por tudo, você me ensinou a amar de verdade. Eu te amei por quem você era e, principalmente, por quem você se tornou. Você é incrível, e me dói muito ter que te deixar, mas eu já percebi há tempos que você não me merecia. Meu amor foi verdadeiro, eu te amo e amei como nunca amei e nunca vou amar ninguém, mas o meu jeito neurótico acabou com tudo. Eu vi o quanto você lutou por nós, e eu realmente quis que fosse a gente, mas não deu certo. Eu só espero que você continue sendo esta pessoa incrível que você é, que cuidou de mim quando mais ninguém se importava, que ficou comigo mesmo eu explodindo e te tratando de uma forma terrível. Você é única, é realmente especial e, do fundo do meu coração, eu te peço perdão por tudo que eu te fiz, e espero, algum dia, poder te tocar novamente. Eu te amo para sempre. Se cuide, minha princesa. 🤍
+
+            </div>
+
+                <div class="letter-signature">
+                    Com carinho. Para helena
+                </div>
+
+
+                <div class="letter-actions">
+
+
+                    <button
+                        class="letter-button primary"
+                        id="timerBtn"
+                    >
+                        Ver nosso tempo
+                    </button>
+
+                </div>
+
+            </article>
+
+        </div>
+
+
+        <!-- TIMER -->
+
+        <section id="timer-reveal">
+
+            <div class="timer-content">
+
+                <small>
+                    o tempo que ficou
+                </small>
+
+                <h2>
+                    Nosso Tempo
+                </h2>
+
+                <p class="timer-subtitle">
+                    Cada segundo guardando uma lembrança.
+                </p>
+
+                <div class="timer-grid-final" id="finalTimerGrid">
+    <div class="timer-item-final">
+        <div class="num" id="f-months">03</div>
+        <div class="lbl">Meses</div>
+    </div>
+
+    <div class="timer-item-final">
+        <div class="num" id="f-days">24</div>
+        <div class="lbl">Dias</div>
+    </div>
+
+    <div class="timer-item-final">
+        <div class="num" id="f-hours">16</div>
+        <div class="lbl">Horas</div>
+    </div>
+
+    <div class="timer-item-final">
+        <div class="num" id="f-minutes">08</div>
+        <div class="lbl">Minutos</div>
+    </div>
+
+    <div class="timer-item-final">
+        <div class="num" id="f-seconds">54</div>
+        <div class="lbl">Segundos</div>
+    </div>
+</div>
+
+
+                <div class="timer-footer">
+                    uma história que existiu de verdade
+                </div>
+
+                <span class="timer-heart">
+                    ♥
+                </span>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
