@@ -1538,3 +1538,2112 @@ MOBILE
 }
 
 }
+
+
+
+/* =========================================================
+   BIBLIOTECA — NOSSA HISTÓRIA
+   ========================================================= */
+
+#app {
+    height: 100%;
+    overflow-y: auto;
+    align-items: flex-start;
+    padding: 25px 20px 60px;
+}
+
+.app-inner {
+    max-width: 1050px;
+    height: auto;
+    min-height: 100%;
+    justify-content: flex-start;
+    align-items: stretch;
+}
+
+.library-screen {
+    width: 100%;
+    padding-top: 65px;
+    animation: libraryEnter .9s ease both;
+}
+
+@keyframes libraryEnter {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.library-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.library-eyebrow,
+.section-eyebrow,
+.counter-eyebrow {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: rgba(147,197,253,.65);
+    font-weight: 600;
+}
+
+.library-header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(42px, 7vw, 65px);
+    font-weight: 500;
+    margin: 8px 0;
+    color: #eaf2ff;
+}
+
+.library-header > p {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+
+.library-stats {
+    margin-top: 18px;
+    color: rgba(147,197,253,.75);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.stat-separator {
+    margin: 0 9px;
+    color: #3b82f6;
+}
+
+/* PAREDE */
+
+.library-wall {
+    position: relative;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 55px;
+    margin: 25px auto 55px;
+    padding: 25px;
+    border: 1px solid rgba(96,165,250,.12);
+    border-radius: 18px;
+    background:
+        linear-gradient(145deg, rgba(15,30,55,.65), rgba(5,12,27,.8));
+    box-shadow: inset 0 0 60px rgba(0,0,0,.22);
+}
+
+.wall-decoration {
+    position: absolute;
+    bottom: 22px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96,165,250,.18), transparent);
+}
+
+.photo-album {
+    position: relative;
+    width: 165px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transform: rotate(-3deg);
+    transition: transform .35s ease;
+}
+
+.photo-album:hover {
+    transform: rotate(0) translateY(-8px) scale(1.04);
+}
+
+.album-pin,
+.note-pin {
+    position: absolute;
+    z-index: 3;
+    top: -9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #60a5fa;
+    box-shadow: 0 2px 10px rgba(59,130,246,.5);
+}
+
+.album-cover {
+    height: 180px;
+    padding: 8px;
+    background: linear-gradient(145deg,#172c4c,#071327);
+    border: 1px solid rgba(147,197,253,.4);
+    border-radius: 5px 12px 12px 5px;
+    box-shadow: 8px 12px 25px rgba(0,0,0,.4);
+}
+
+.album-cover-inner {
+    height: 100%;
+    border: 1px solid rgba(147,197,253,.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.album-heart {
+    color: #93c5fd;
+    font-size: 25px;
+}
+
+.album-small,
+.album-date {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #93c5fd;
+}
+
+.album-cover strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 34px;
+    font-weight: 500;
+}
+
+.album-caption,
+.album-hint {
+    display: block;
+    margin-top: 12px;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    color: #dbeafe;
+}
+
+.album-hint {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.wall-note {
+    position: relative;
+    transform: rotate(4deg);
+    padding: 20px 24px;
+    background: #dce7f3;
+    color: #263244;
+    font-family: "Cormorant Garamond",serif;
+    font-size: 19px;
+    line-height: 1.3;
+    box-shadow: 4px 8px 18px rgba(0,0,0,.3);
+}
+
+.note-pin {
+    background: #64748b;
+    width: 8px;
+    height: 8px;
+    top: -5px;
+}
+
+/* ESTANTES */
+
+.library-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(96,165,250,.13);
+}
+
+.library-section-heading h2 {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 31px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.library-decoration {
+    color: #60a5fa;
+    font-size: 25px;
+}
+
+.library-category {
+    margin-bottom: 42px;
+}
+
+.category-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.category-heading h3 {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 23px;
+    font-weight: 500;
+    color: #dbeafe;
+}
+
+.category-heading span {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 1px;
+}
+
+.shelf-books {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 13px;
+    padding: 14px 15px 0;
+    border-bottom: 9px solid #142b49;
+    border-radius: 3px;
+    background: linear-gradient(180deg,rgba(10,23,43,.2),rgba(15,32,55,.2));
+    box-shadow: 0 8px 18px rgba(0,0,0,.3);
+}
+
+.book-card {
+    position: relative;
+    width: 112px;
+    height: 155px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 9px;
+    overflow: hidden;
+    color: #dbeafe;
+    background: linear-gradient(90deg,#102541,#1b385d 48%,#102541);
+    border: 1px solid rgba(147,197,253,.24);
+    border-radius: 3px 7px 0 0;
+    box-shadow: 3px 0 8px rgba(0,0,0,.35);
+    cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease, filter .3s ease;
+}
+
+.book-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 8px;
+    width: 1px;
+    background: rgba(191,219,254,.15);
+}
+
+.book-card:hover {
+    transform: translateY(-13px);
+    box-shadow: 0 12px 22px rgba(0,0,0,.45),0 0 20px rgba(59,130,246,.13);
+    filter: brightness(1.18);
+}
+
+.book-card-top {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #93c5fd;
+}
+
+.book-card-symbol {
+    font-size: 25px;
+    color: #93c5fd;
+}
+
+.book-card-title {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 18px;
+    line-height: 1.05;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+.book-card-hint {
+    font-size: 8px;
+    color: rgba(191,219,254,.65);
+}
+
+.book-card-number {
+    position: absolute;
+    bottom: 8px;
+    right: 9px;
+    font-size: 8px;
+    color: rgba(191,219,254,.35);
+}
+
+.book-card.is-placeholder {
+    background: linear-gradient(90deg,#202d40,#34445c 48%,#202d40);
+    border-style: dashed;
+    opacity: .75;
+}
+
+.shelf-plank {
+    width: 100%;
+    height: 1px;
+    flex-basis: 100%;
+}
+
+/* CONTADOR */
+
+.library-counter {
+    text-align: center;
+    margin: 70px auto 40px;
+    padding: 45px 20px;
+    border: 1px solid rgba(96,165,250,.16);
+    border-radius: 18px;
+    background: linear-gradient(145deg,rgba(15,30,55,.6),rgba(3,7,18,.7));
+    box-shadow: 0 20px 50px rgba(0,0,0,.2);
+}
+
+.counter-ornament {
+    color: #60a5fa;
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.library-counter h2 {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 37px;
+    font-weight: 500;
+    margin: 7px 0;
+}
+
+.library-counter > p {
+    font-size: 11px;
+    color: var(--muted);
+}
+
+.library-counter .timer-grid-final {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px auto;
+}
+
+.library-counter .timer-item-final {
+    min-width: 80px;
+    padding: 14px 9px;
+    border: 1px solid rgba(96,165,250,.14);
+    border-radius: 10px;
+    background: rgba(30,58,95,.17);
+}
+
+.library-counter .num {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 31px;
+    color: #bfdbfe;
+}
+
+.library-counter .lbl {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.timer-footer {
+    font-size: 9px;
+    color: rgba(147,197,253,.55);
+    letter-spacing: 2px;
+}
+
+.timer-heart {
+    display: block;
+    margin-top: 20px;
+    color: #60a5fa;
+}
+
+.library-footer {
+    text-align: center;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(147,197,253,.35);
+    padding: 15px;
+}
+
+.library-footer span {
+    color: #60a5fa;
+}
+
+/* LEITOR */
+
+.letter-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(1,5,14,.88);
+    backdrop-filter: blur(15px);
+    opacity: 0;
+    visibility: hidden;
+    transition: .3s;
+    overflow-y: auto;
+}
+
+.letter-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.letter-modal-content {
+    position: relative;
+    width: min(650px,100%);
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 50px 55px;
+    background: #f8f4ea;
+    color: #263244;
+    border-radius: 3px;
+    box-shadow: 0 30px 100px rgba(0,0,0,.5);
+    transform: translateY(20px);
+    transition: .35s;
+}
+
+.letter-modal.active .letter-modal-content {
+    transform: translateY(0);
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 12px;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    font-size: 29px;
+    cursor: pointer;
+}
+
+.letter-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.letter-symbol {
+    color: #557ba8;
+    font-size: 23px;
+    margin-bottom: 8px;
+}
+
+.reader-category {
+    display: block;
+    color: #64748b;
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.letter-header h2 {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 39px;
+    font-weight: 600;
+    margin: 7px 0;
+}
+
+.letter-line {
+    width: 65px;
+    height: 1px;
+    background: #9aaac0;
+    margin: 15px auto;
+}
+
+.letter-header p {
+    font-size: 11px;
+    color: #8490a0;
+}
+
+.letter-full-text {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 20px;
+    line-height: 1.75;
+    white-space: pre-line;
+    user-select: text;
+}
+
+.letter-signature {
+    margin-top: 35px;
+    text-align: right;
+    font-family: "Playfair Display",serif;
+    font-style: italic;
+    color: #526987;
+}
+
+.reader-navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 35px;
+    padding-top: 15px;
+    border-top: 1px solid #d8dce2;
+}
+
+.reader-navigation button {
+    border: 0;
+    background: transparent;
+    color: #526987;
+    cursor: pointer;
+    font-size: 11px;
+}
+
+.reader-navigation button:disabled {
+    opacity: .3;
+    cursor: default;
+}
+
+.reader-navigation span {
+    font-size: 10px;
+    color: #8490a0;
+}
+
+/* ÁLBUM */
+
+.photo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    background: rgba(1,5,14,.96);
+    backdrop-filter: blur(18px);
+    opacity: 0;
+    visibility: hidden;
+    transition: .35s;
+}
+
+.photo-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    border: 0;
+    background: transparent;
+    color: #bfdbfe;
+    font-size: 38px;
+    cursor: pointer;
+}
+
+.photo-viewer {
+    width: min(850px,100%);
+    text-align: center;
+}
+
+.photo-viewer-heading > span {
+    color: #93c5fd;
+    font-size: 9px;
+    letter-spacing: 4px;
+}
+
+.photo-viewer-heading h2 {
+    font-family: "Cormorant Garamond",serif;
+    font-size: 37px;
+    font-weight: 500;
+    margin: 5px 0 25px;
+}
+
+.photo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.photo-figure {
+    width: min(570px,75vw);
+    margin: 0;
+    animation: photoEnter .4s ease;
+}
+
+@keyframes photoEnter {
+    from { opacity: 0; transform: scale(.97); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.photo-figure img {
+    display: block;
+    width: 100%;
+    height: min(55vh,500px);
+    object-fit: contain;
+    border-radius: 8px;
+    filter: saturate(.94);
+    box-shadow: 0 20px 70px rgba(0,0,0,.45);
+}
+
+.photo-figure figcaption {
+    margin-top: 17px;
+}
+
+.photo-figure figcaption span {
+    color: #60a5fa;
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.photo-figure figcaption p {
+    margin-top: 7px;
+    font-family: "Cormorant Garamond",serif;
+    font-size: 25px;
+    color: #eaf2ff;
+}
+
+.photo-arrow {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border: 1px solid rgba(147,197,253,.25);
+    border-radius: 50%;
+    background: rgba(30,58,95,.3);
+    color: #bfdbfe;
+    font-size: 30px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.photo-arrow:hover {
+    background: rgba(59,130,246,.25);
+    border-color: #60a5fa;
+}
+
+.photo-progress {
+    width: min(570px,75vw);
+    height: 2px;
+    margin: 25px auto 12px;
+    background: rgba(147,197,253,.13);
+}
+
+.photo-progress div {
+    height: 100%;
+    width: 0;
+    background: #60a5fa;
+    transition: width .3s ease;
+}
+
+.photo-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.photo-controls button {
+    border: 0;
+    background: transparent;
+    color: #bfdbfe;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.photo-controls span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+.photo-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 17px auto 0;
+    max-width: 400px;
+}
+
+.photo-dot {
+    width: 5px;
+    height: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #334155;
+    cursor: pointer;
+}
+
+.photo-dot.active {
+    background: #93c5fd;
+    box-shadow: 0 0 8px #60a5fa;
+}
+
+.library-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+}
+
+.library-empty > span {
+    font-size: 30px;
+    color: #60a5fa;
+}
+
+body.reader-open,
+body.album-open {
+    overflow: hidden;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+    #app {
+        padding: 15px 13px 40px;
+    }
+
+    .library-screen {
+        padding-top: 65px;
+    }
+
+    .library-wall {
+        min-height: 220px;
+        gap: 20px;
+        padding: 18px 10px;
+    }
+
+    .photo-album {
+        width: 135px;
+    }
+
+    .album-cover {
+        height: 150px;
+    }
+
+    .album-cover strong {
+        font-size: 29px;
+    }
+
+    .wall-note {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .book-card {
+        width: 95px;
+        height: 140px;
+    }
+
+    .shelf-books {
+        gap: 9px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .letter-modal-content {
+        padding: 45px 25px 30px;
+    }
+
+    .letter-full-text {
+        font-size: 18px;
+    }
+
+    .photo-modal {
+        padding: 15px;
+    }
+
+    .photo-stage {
+        gap: 7px;
+    }
+
+    .photo-arrow {
+        width: 33px;
+        height: 33px;
+        font-size: 24px;
+    }
+
+    .photo-figure {
+        width: calc(100vw - 100px);
+    }
+
+    .photo-figure img {
+        height: 48vh;
+    }
+
+    .photo-controls {
+        gap: 12px;
+    }
+
+    .photo-controls span {
+        font-size: 7px;
+    }
+
+    .library-counter .timer-item-final {
+        min-width: 65px;
+    }
+
+    .library-counter .num {
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 380px) {
+    .wall-note {
+        font-size: 14px;
+        padding: 11px;
+    }
+
+    .photo-album {
+        width: 120px;
+    }
+
+    .album-cover {
+        height: 135px;
+    }
+}
+
+
+/* =========================================================
+RESET
+========================================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --bg: #030712;
+    --blue: #3b82f6;
+    --blue-light: #60a5fa;
+    --blue-dark: #1d4ed8;
+
+    --text: #e8f0ff;
+    --muted: #8190a8;
+
+    --paper: #f4f0e4;
+    --paper-edge: #d4d0c4;
+    --ink: #263244;
+
+    --spine-1a: #0a1a30;
+    --spine-1b: #1a3b66;
+    --spine-2a: #0d2140;
+    --spine-2b: #1e4066;
+    --spine-3a: #112a48;
+    --spine-3b: #1d3d60;
+    --spine-4a: #0f2438;
+    --spine-4b: #1a3550;
+}
+
+html, body { width: 100%; height: 100%; }
+
+body {
+    font-family: "Inter", sans-serif;
+    color: var(--text);
+    overflow: hidden;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.16), transparent 38%),
+        radial-gradient(circle at 10% 90%, rgba(29, 78, 216, 0.08), transparent 30%),
+        var(--bg);
+}
+
+button { font: inherit; }
+
+/* =========================================================
+BACKGROUND
+========================================================= */
+.background { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+
+.grid {
+    position: absolute;
+    inset: -50%;
+    opacity: 0.16;
+    background-image:
+        linear-gradient(rgba(96, 165, 250, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(96, 165, 250, 0.07) 1px, transparent 1px);
+    background-size: 55px 55px;
+    transform: perspective(700px) rotateX(62deg);
+    transform-origin: center bottom;
+}
+
+.glow {
+    position: absolute;
+    width: 550px; height: 550px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.12), transparent 68%);
+    filter: blur(20px);
+}
+
+.particles { position: absolute; inset: 0; }
+
+.particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    background: rgba(147, 197, 253, 0.7);
+    animation: particleFloat linear infinite;
+}
+
+@keyframes particleFloat {
+    from { transform: translateY(20px); opacity: 0; }
+    15%  { opacity: 0.6; }
+    85%  { opacity: 0.6; }
+    to   { transform: translateY(-120px); opacity: 0; }
+}
+
+/* =========================================================
+APP
+========================================================= */
+#app {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 25px 20px 60px;
+}
+
+.app-inner {
+    width: 100%;
+    max-width: 1050px;
+    margin: 0 auto;
+}
+
+.top-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: rgba(191, 219, 254, 0.55);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.top-label::before,
+.top-label::after {
+    content: "";
+    width: 22px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5));
+}
+.top-label::after { transform: rotate(180deg); }
+
+/* =========================================================
+LIBRARY
+========================================================= */
+.library-screen {
+    width: 100%;
+    padding-top: 45px;
+    animation: libraryEnter .9s ease both;
+}
+
+@keyframes libraryEnter {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.library-header { text-align: center; margin-bottom: 25px; }
+
+.library-eyebrow,
+.section-eyebrow,
+.counter-eyebrow {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: rgba(147, 197, 253, .65);
+    font-weight: 600;
+}
+
+.library-header h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(42px, 7vw, 65px);
+    font-weight: 500;
+    margin: 8px 0;
+    color: #eaf2ff;
+}
+
+.library-header > p {
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: .3px;
+}
+
+.library-stats {
+    margin-top: 18px;
+    color: rgba(147, 197, 253, .75);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.stat-separator { margin: 0 9px; color: #3b82f6; }
+
+/* =========================================================
+PAREDE / ÁLBUM PENDURADO
+========================================================= */
+.library-wall {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 55px 20px 40px;
+    margin: 10px auto 55px;
+    max-width: 720px;
+    border-radius: 4px;
+    background:
+        repeating-linear-gradient(
+            90deg,
+            rgba(96, 165, 250, .025) 0,
+            rgba(96, 165, 250, .025) 1px,
+            transparent 1px,
+            transparent 60px
+        ),
+        linear-gradient(180deg, rgba(15, 30, 55, .45), rgba(3, 7, 18, .55));
+    box-shadow:
+        inset 0 0 80px rgba(0, 0, 0, .4),
+        inset 0 2px 0 rgba(147, 197, 253, .06);
+}
+
+/* parede — moldura sutil */
+.library-wall::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(96, 165, 250, .08);
+    border-radius: 2px;
+    pointer-events: none;
+}
+
+.wall-nail {
+    position: absolute;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #94a3b8, #475569);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .6);
+    z-index: 2;
+}
+
+.photo-album {
+    position: relative;
+    width: 175px;
+    border: none;
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    transform: rotate(-2deg);
+    transition: transform .35s ease;
+    padding-top: 40px;
+}
+
+.photo-album:hover {
+    transform: rotate(0) translateY(-6px);
+}
+
+.album-string {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(180deg, rgba(147,197,253,.4), rgba(147,197,253,.15));
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.album-pin {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #60a5fa;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, .55);
+    z-index: 3;
+}
+
+.album-cover {
+    height: 195px;
+    padding: 8px;
+    background: linear-gradient(145deg, #172c4c, #071327);
+    border: 1px solid rgba(147, 197, 253, .4);
+    border-radius: 5px 12px 12px 5px;
+    box-shadow:
+        8px 12px 25px rgba(0, 0, 0, .45),
+        inset 0 0 0 1px rgba(147, 197, 253, .08);
+    position: relative;
+}
+
+/* lombada do álbum */
+.album-cover::before {
+    content: "";
+    position: absolute;
+    top: 8px; bottom: 8px; left: 8px;
+    width: 4px;
+    background: linear-gradient(90deg, rgba(0,0,0,.4), rgba(147,197,253,.08));
+    border-radius: 2px 0 0 2px;
+}
+
+.album-cover-inner {
+    height: 100%;
+    margin-left: 6px;
+    border: 1px solid rgba(147, 197, 253, .2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+
+.album-heart { color: #93c5fd; font-size: 27px; }
+
+.album-small,
+.album-date {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #93c5fd;
+}
+
+.album-cover strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 36px;
+    font-weight: 500;
+}
+
+.album-caption,
+.album-hint {
+    display: block;
+    margin-top: 14px;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    color: #dbeafe;
+}
+
+.album-hint { margin-top: 5px; color: var(--muted); font-size: 9px; }
+
+/* =========================================================
+ESTANTES
+========================================================= */
+.library-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(96, 165, 250, .13);
+}
+
+.library-section-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 31px;
+    font-weight: 500;
+    margin-top: 5px;
+}
+
+.library-decoration { color: #60a5fa; font-size: 25px; }
+
+/* Categoria */
+.library-category {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-heading {
+    width: 100%;
+    max-width: 720px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    padding: 0 10px;
+}
+
+.category-heading h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: #dbeafe;
+    letter-spacing: .5px;
+}
+
+.category-heading span {
+    color: var(--muted);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ESTANTE */
+.shelf {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 720px;
+}
+
+.shelf-books {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 8px;
+    padding: 15px 35px 0;
+    min-height: 235px;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+
+    position: relative;
+    border-radius: 4px 4px 0 0;
+    background:
+        linear-gradient(180deg, rgba(8, 20, 38, .55) 0%, rgba(5, 12, 25, .85) 100%);
+    box-shadow: inset 0 25px 50px -25px rgba(0, 0, 0, .6);
+}
+
+.shelf-books::-webkit-scrollbar { display: none; }
+
+/* tábua da estante */
+.shelf-books::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -14px;
+    height: 14px;
+    background: linear-gradient(180deg, #1a3352 0%, #0a1929 45%, #050e1a 100%);
+    border-top: 1px solid rgba(147, 197, 253, .18);
+    border-radius: 2px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, .55);
+    pointer-events: none;
+}
+
+/* =========================================================
+LOMBADA DO LIVRO
+========================================================= */
+.book-spine {
+    --w: 38px;
+    --h: 185px;
+    --t: #0a1a30;
+    --b: #1a3b66;
+
+    position: relative;
+    flex-shrink: 0;
+    width: var(--w);
+    height: var(--h);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 2px 12px;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px 3px 0 0;
+    background:
+        linear-gradient(90deg,
+            var(--t) 0%,
+            var(--b) 45%,
+            color-mix(in srgb, var(--b) 80%, #60a5fa 20%) 55%,
+            var(--t) 100%
+        );
+    box-shadow:
+        inset 3px 0 6px rgba(0, 0, 0, .35),
+        inset -1px 0 2px rgba(255, 255, 255, .05),
+        3px 0 8px rgba(0, 0, 0, .4);
+    transition:
+        transform .35s cubic-bezier(.4, 0, .2, 1),
+        box-shadow .35s ease,
+        filter .35s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* linhas douradas da lombada */
+.book-spine::before,
+.book-spine::after {
+    content: "";
+    position: absolute;
+    left: 22%;
+    right: 22%;
+    height: 1px;
+    background: rgba(147, 197, 253, .35);
+}
+
+.book-spine::before { top: 26px; }
+.book-spine::after  { bottom: 26px; }
+
+.book-spine:hover {
+    transform: translateY(-14px) rotateY(-4deg);
+    box-shadow:
+        inset 3px 0 6px rgba(0, 0, 0, .35),
+        inset -1px 0 2px rgba(255, 255, 255, .05),
+        0 20px 35px rgba(0, 0, 0, .6),
+        0 0 30px rgba(59, 130, 246, .25);
+    filter: brightness(1.15);
+    z-index: 5;
+}
+
+.book-spine.lifting {
+    transform: translateY(-25px) scale(1.06);
+    box-shadow:
+        0 25px 45px rgba(0, 0, 0, .7),
+        0 0 40px rgba(96, 165, 250, .45);
+    z-index: 20;
+}
+
+/* ornamento superior */
+.spine-ornament {
+    color: rgba(147, 197, 253, .7);
+    font-size: 9px;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+/* título em pé */
+.spine-title {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    color: #cbd5e1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 130px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .5);
+    padding: 4px 0;
+}
+
+/* número inferior */
+.spine-number {
+    color: rgba(147, 197, 253, .45);
+    font-size: 8px;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+/* =========================================================
+CONTADOR
+========================================================= */
+.library-counter {
+    text-align: center;
+    margin: 70px auto 40px;
+    padding: 45px 20px;
+    max-width: 720px;
+    border: 1px solid rgba(96, 165, 250, .16);
+    border-radius: 18px;
+    background: linear-gradient(145deg, rgba(15, 30, 55, .6), rgba(3, 7, 18, .7));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .2);
+}
+
+.counter-ornament { color: #60a5fa; font-size: 22px; margin-bottom: 12px; }
+
+.library-counter h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 37px;
+    font-weight: 500;
+    margin: 7px 0;
+}
+
+.library-counter > p { font-size: 11px; color: var(--muted); }
+
+.library-counter .timer-grid-final {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px auto;
+}
+
+.library-counter .timer-item-final {
+    min-width: 80px;
+    padding: 14px 9px;
+    border: 1px solid rgba(96, 165, 250, .14);
+    border-radius: 10px;
+    background: rgba(30, 58, 95, .17);
+}
+
+.library-counter .num {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 31px;
+    color: #bfdbfe;
+}
+
+.library-counter .lbl {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+}
+
+.timer-footer {
+    font-size: 9px;
+    color: rgba(147, 197, 253, .55);
+    letter-spacing: 2px;
+}
+
+.timer-heart {
+    display: block;
+    margin-top: 20px;
+    color: #60a5fa;
+    animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); opacity: .75; }
+    50%      { transform: scale(1.12); opacity: 1; }
+}
+
+.library-footer {
+    text-align: center;
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: rgba(147, 197, 253, .35);
+    padding: 15px;
+}
+.library-footer span { color: #60a5fa; }
+
+.library-empty {
+    text-align: center;
+    padding: 40px;
+    color: var(--muted);
+}
+.library-empty > span { font-size: 30px; color: #60a5fa; display: block; margin-bottom: 12px; }
+
+/* =========================================================
+LIVRO 3D — MODAL DE LEITURA
+========================================================= */
+.book-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: rgba(2, 6, 15, .92);
+    backdrop-filter: blur(14px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .35s ease, visibility .35s ease;
+}
+
+.book-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* STAGE — perspectiva 3D */
+.book-stage {
+    perspective: 2200px;
+    perspective-origin: 50% 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* LIVRO */
+.book {
+    position: relative;
+    width: 340px;
+    height: 480px;
+    transform-style: preserve-3d;
+    transform: rotateX(6deg);
+    animation: bookAppear .8s cubic-bezier(.16, 1, .3, 1);
+}
+
+@keyframes bookAppear {
+    from {
+        opacity: 0;
+        transform: rotateX(6deg) scale(.82) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: rotateX(6deg) scale(1) translateY(0);
+    }
+}
+
+/* PÁGINAS (conteúdo do livro) */
+.book-pages {
+    position: absolute;
+    inset: 0;
+    border-radius: 0 6px 6px 0;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, .55), transparent 45%),
+        linear-gradient(90deg, rgba(0, 0, 0, .05) 0%, transparent 8%, transparent 92%, rgba(0, 0, 0, .05) 100%),
+        var(--paper);
+    box-shadow:
+        inset 0 0 40px rgba(40, 55, 70, .08),
+        -3px 0 0 var(--paper-edge),
+        -6px 0 0 #e0dcd0,
+        3px 0 0 var(--paper-edge),
+        6px 0 0 #e0dcd0,
+        0 30px 80px rgba(0, 0, 0, .55);
+    transform: translateZ(0);
+}
+
+/* Linha vermelha de margem */
+.book-pages::before {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 44px;
+    width: 1px;
+    background: rgba(185, 78, 78, .22);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* linhas de papel */
+.book-pages::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent 0,
+            transparent 37px,
+            rgba(40, 55, 70, .06) 38px
+        );
+    pointer-events: none;
+    opacity: .7;
+}
+
+/* CONTEÚDO INTERNO */
+.page-inner {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 42px 40px 35px 60px;
+    transition: opacity .3s ease;
+}
+
+.page-inner::-webkit-scrollbar { width: 4px; }
+.page-inner::-webkit-scrollbar-track { background: transparent; }
+.page-inner::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, .45);
+    border-radius: 20px;
+}
+
+.page-category {
+    display: block;
+    font-family: "Inter", sans-serif;
+    font-size: 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.page-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #1e3a8a;
+    line-height: 1.1;
+}
+
+.page-divider {
+    width: 55px;
+    height: 1px;
+    background: #94a3b8;
+    margin: 12px 0 10px;
+}
+
+.page-subtitle {
+    font-family: "Cormorant Garamond", serif;
+    font-style: italic;
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.page-date {
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 22px;
+}
+
+.page-text {
+    font-family: "Playfair Display", serif;
+    font-size: 16px;
+    line-height: 1.85;
+    color: #263244;
+    white-space: pre-wrap;
+    user-select: text;
+}
+
+.page-signature {
+    margin-top: 28px;
+    text-align: right;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 20px;
+    font-style: italic;
+    color: #334155;
+}
+
+/* =========================================================
+CAPA (gira)
+========================================================= */
+.book-cover {
+    position: absolute;
+    inset: 0;
+    transform-origin: left center;
+    transform-style: preserve-3d;
+    transform: rotateY(0deg) translateZ(3px);
+    transition: transform 1.35s cubic-bezier(.42, 0, .2, 1);
+    border-radius: 0 6px 6px 0;
+    cursor: pointer;
+}
+
+.book.opened .book-cover {
+    transform: rotateY(-165deg) translateZ(3px);
+}
+
+.cover-face {
+    position: absolute;
+    inset: 0;
+    border-radius: 0 6px 6px 0;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: hidden;
+}
+
+/* FRENTE */
+.cover-front {
+    background:
+        radial-gradient(ellipse at 30% 20%, rgba(96, 165, 250, .15), transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(59, 130, 246, .1), transparent 50%),
+        linear-gradient(160deg, #0f2942 0%, #081a30 45%, #0d2542 100%);
+    border: 1px solid rgba(147, 197, 253, .28);
+    box-shadow:
+        inset 0 0 60px rgba(0, 0, 0, .35),
+        inset 0 0 0 8px rgba(147, 197, 253, .04);
+}
+
+.cover-front-inner {
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(191, 219, 254, .25);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 20px;
+    text-align: center;
+}
+
+.cover-front-inner::before {
+    content: "";
+    position: absolute;
+    inset: 5px;
+    border: 1px solid rgba(191, 219, 254, .1);
+    border-radius: 1px;
+    pointer-events: none;
+}
+
+.cover-top {
+    font-family: "Inter", sans-serif;
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: rgba(191, 219, 254, .7);
+    font-weight: 600;
+}
+
+.cover-ornament {
+    color: #93c5fd;
+    font-size: 22px;
+    text-shadow: 0 0 20px rgba(96, 165, 250, .5);
+}
+
+.cover-title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(26px, 5vw, 34px);
+    font-weight: 600;
+    color: #dbeafe;
+    line-height: 1.15;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, .5);
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+.cover-bottom {
+    font-family: "Inter", sans-serif;
+    font-size: 8px;
+    letter-spacing: 4px;
+    color: rgba(147, 197, 253, .55);
+    font-weight: 500;
+}
+
+/* FUNDO DA CAPA (virado pra trás) */
+.cover-back {
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(147, 197, 253, .06), transparent 60%),
+        linear-gradient(160deg, #0a1f38, #071528);
+    border: 1px solid rgba(147, 197, 253, .18);
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, .5);
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cover-back-mark {
+    color: rgba(147, 197, 253, .35);
+    font-size: 32px;
+}
+
+.cover-back-text {
+    font-family: "Inter", sans-serif;
+    font-size: 8px;
+    letter-spacing: 5px;
+    color: rgba(147, 197, 253, .35);
+    text-transform: uppercase;
+}
+
+/* =========================================================
+BOTÃO FECHAR
+========================================================= */
+.book-modal-close {
+    position: fixed;
+    top: 22px;
+    right: 26px;
+    z-index: 30;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid rgba(147, 197, 253, .25);
+    background: rgba(15, 30, 55, .6);
+    color: #dbeafe;
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all .3s ease;
+}
+
+.book-modal-close:hover {
+    background: rgba(30, 58, 95, .85);
+    border-color: rgba(147, 197, 253, .55);
+    transform: rotate(90deg);
+}
+
+/* =========================================================
+NAVEGAÇÃO
+========================================================= */
+.book-navigation {
+    position: fixed;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    z-index: 15;
+}
+
+.book-navigation button {
+    border: 0;
+    background: transparent;
+    color: #bfdbfe;
+    cursor: pointer;
+    font-size: 11px;
+    letter-spacing: 1px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    transition: background .25s ease;
+}
+
+.book-navigation button:hover:not(:disabled) {
+    background: rgba(59, 130, 246, .15);
+}
+
+.book-navigation button:disabled {
+    opacity: .3;
+    cursor: default;
+}
+
+.book-navigation span {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+/* =========================================================
+ÁLBUM / SLIDESHOW
+========================================================= */
+.photo-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    background: rgba(1, 5, 14, .96);
+    backdrop-filter: blur(18px);
+    opacity: 0;
+    visibility: hidden;
+    transition: .35s;
+}
+
+.photo-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    border: 0;
+    background: transparent;
+    color: #bfdbfe;
+    font-size: 38px;
+    cursor: pointer;
+}
+
+.photo-viewer { width: min(850px, 100%); text-align: center; }
+
+.photo-viewer-heading > span {
+    color: #93c5fd;
+    font-size: 9px;
+    letter-spacing: 4px;
+}
+
+.photo-viewer-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 37px;
+    font-weight: 500;
+    margin: 5px 0 25px;
+}
+
+.photo-stage {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+}
+
+.photo-figure {
+    width: min(570px, 75vw);
+    margin: 0;
+    animation: photoEnter .4s ease;
+}
+
+@keyframes photoEnter {
+    from { opacity: 0; transform: scale(.97); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+.photo-figure img {
+    display: block;
+    width: 100%;
+    height: min(55vh, 500px);
+    object-fit: contain;
+    border-radius: 8px;
+    filter: saturate(.94);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .45);
+}
+
+.photo-figure figcaption { margin-top: 17px; }
+
+.photo-figure figcaption span {
+    color: #60a5fa;
+    font-size: 9px;
+    letter-spacing: 3px;
+}
+
+.photo-figure figcaption p {
+    margin-top: 7px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 25px;
+    color: #eaf2ff;
+}
+
+.photo-arrow {
+    width: 43px;
+    height: 43px;
+    flex-shrink: 0;
+    border: 1px solid rgba(147, 197, 253, .25);
+    border-radius: 50%;
+    background: rgba(30, 58, 95, .3);
+    color: #bfdbfe;
+    font-size: 30px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.photo-arrow:hover {
+    background: rgba(59, 130, 246, .25);
+    border-color: #60a5fa;
+}
+
+.photo-progress {
+    width: min(570px, 75vw);
+    height: 2px;
+    margin: 25px auto 12px;
+    background: rgba(147, 197, 253, .13);
+}
+
+.photo-progress div {
+    height: 100%;
+    width: 0;
+    background: #60a5fa;
+    transition: width .3s ease;
+}
+
+.photo-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.photo-controls button {
+    border: 0;
+    background: transparent;
+    color: #bfdbfe;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.photo-controls span {
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: var(--muted);
+}
+
+.photo-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 6px;
+    margin: 17px auto 0;
+    max-width: 400px;
+}
+
+.photo-dot {
+    width: 5px;
+    height: 5px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #334155;
+    cursor: pointer;
+}
+
+.photo-dot.active {
+    background: #93c5fd;
+    box-shadow: 0 0 8px #60a5fa;
+}
+
+body.reader-open,
+body.album-open { overflow: hidden; }
+
+/* =========================================================
+MOBILE
+========================================================= */
+@media (max-width: 600px) {
+    #app { padding: 15px 12px 40px; }
+
+    .library-screen { padding-top: 40px; }
+
+    .library-header h1 { font-size: 42px; }
+
+    .library-wall {
+        padding: 45px 15px 30px;
+        margin-bottom: 40px;
+    }
+
+    .photo-album { width: 145px; }
+    .album-cover { height: 165px; }
+    .album-cover strong { font-size: 30px; }
+
+    .category-heading h3 { font-size: 19px; }
+
+    .shelf-books {
+        padding: 12px 20px 0;
+        min-height: 200px;
+        gap: 6px;
+    }
+
+    .book-spine {
+        --w: 34px !important;
+        --h: 160px !important;
+    }
+
+    .spine-title { font-size: 12px; max-height: 105px; }
+
+    /* modal do livro no mobile */
+    .book-modal { padding: 12px; }
+
+    .book {
+        width: min(320px, 82vw);
+        height: min(460px, 68vh);
+    }
+
+    .book.opened .book-cover {
+        transform: rotateY(-155deg) translateZ(3px);
+    }
+
+    .page-inner { padding: 32px 25px 30px 40px; }
+
+    .book-pages::before { left: 26px; }
+
+    .page-title { font-size: 26px; }
+    .page-text { font-size: 15px; line-height: 1.75; }
+    .page-signature { font-size: 18px; }
+
+    .cover-front-inner { padding: 26px 16px; }
+    .cover-title { font-size: 24px; }
+
+    .book-navigation {
+        bottom: 15px;
+        gap: 18px;
+    }
+
+    .photo-modal { padding: 15px; }
+
+    .photo-stage { gap: 7px; }
+
+    .photo-arrow {
+        width: 33px;
+        height: 33px;
+        font-size: 24px;
+    }
+
+    .photo-figure { width: calc(100vw - 100px); }
+    .photo-figure img { height: 48vh; }
+    .photo-controls { gap: 12px; }
+    .photo-controls span { font-size: 7px; }
+
+    .library-counter .timer-item-final { min-width: 65px; }
+    .library-counter .num { font-size: 25px; }
+}
+
+@media (max-width: 380px) {
+    .photo-album { width: 125px; }
+    .album-cover { height: 145px; }
+    .book { width: 88vw; }
+}
+

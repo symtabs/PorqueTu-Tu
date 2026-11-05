@@ -1,32 +1,18 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PorqueTuÉTu</title>
 
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
 
-<title>Nossa História</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap"
-    rel="stylesheet"
->
-
-<link rel="stylesheet" href="css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-<!-- BACKGROUND -->
 
 <div class="background">
     <div class="grid"></div>
@@ -34,214 +20,182 @@
     <div class="particles" id="particles"></div>
 </div>
 
-
-<!-- APP -->
-
 <main id="app">
-
     <div class="app-inner">
 
-        <div class="top-label">
-            nossa história
-        </div>
+        <section id="library-screen" class="library-screen">
 
+            <header class="library-header">
+                <div class="library-eyebrow">UM LUGAR PARA REGISTRAR</div>
+                <h1>Nossa Biblioteca</h1>
+                <p>Que este espaço sirva de conforto pra você sempre que precisar!</p>
 
-        <!-- CARDS -->
-
-        <div id="card-stack"></div>
-
-
-        <!-- ENVELOPE -->
-
-        <section id="final-screen">
-
-            <div class="envelope-scene">
-
-                <div class="envelope-title">
-
-                    <small>uma última coisa</small>
-
-                    <h1>Para você</h1>
-
-                    <p>
-                        Há algo que eu ainda queria te dizer.
-                    </p>
-
+                <div class="library-stats">
+                    <span id="library-count">0 cartas</span>
+                    <span class="stat-separator">·</span>
+                    <span id="category-count">0 categorias</span>
                 </div>
+            </header>
 
+            <!-- PAREDE COM ÁLBUM PENDURADO -->
+            <div class="library-wall">
+                <span class="wall-nail" aria-hidden="true"></span>
 
-                <div class="envelope-container">
+                <button class="photo-album" id="openAlbum" type="button">
+                    <span class="album-string" aria-hidden="true"></span>
+                    <span class="album-pin" aria-hidden="true"></span>
 
-                    <div
-                        class="envelope"
-                        id="envelope"
-                    >
-
-                        <!-- FUNDO DO ENVELOPE -->
-
-                        <div class="envelope-back"></div>
-
-
-                        <!-- ABA -->
-
-                        <button
-                            class="envelope-flap"
-                            id="envelopeFlap"
-                            aria-label="Abrir envelope"
-                        >
-
-                            <span class="seal">
-                                ♥
-                            </span>
-
-                        </button>
-
-
-                        <!-- FRENTE -->
-
-                        <div class="envelope-front">
-
-                            <div class="envelope-fold left"></div>
-                            <div class="envelope-fold right"></div>
-                            <div class="envelope-fold bottom"></div>
-
+                    <div class="album-cover">
+                        <div class="album-cover-inner">
+                            <span class="album-heart">♥</span>
+                            <span class="album-small">NOSSAS</span>
+                            <strong>Memórias</strong>
+                            <span class="album-date">Album de fotos</span>
                         </div>
-
                     </div>
 
+                    <span class="album-caption">Nosso álbum de fotografias</span>
+                    <span class="album-hint">clique para abrir</span>
+                </button>
+            </div>
+
+            <!-- ESTANTES -->
+            <div class="library-body">
+
+                <div class="library-section-heading">
+                    <div>
+                        <span class="section-eyebrow">ESTANTE VIRTUAL</span>
+                        <h2>Cartas, livros, frases... tudo! Apenas para você :)</h2>
+                    </div>
+                    <span class="library-decoration">✧</span>
                 </div>
 
+                <div id="library-categories"></div>
 
-                <div class="envelope-instruction">
-
-                    <strong>
-                        Abra o envelope
-                    </strong>
-
-                    Toque no selo para continuar
-
+                <div class="library-empty" id="library-empty" hidden>
+                    <span>✧</span>
+                    <p>Ainda não existem páginas por aqui.</p>
                 </div>
 
             </div>
 
-        </section>
-
-
-        <!-- CARTA -->
-
-        <div
-            class="letter-modal"
-            id="letterModal"
-        >
-
-            <article class="letter-modal-content">
-
-                <div class="letter-header">
-
-                    <div class="letter-symbol">
-                        ♥
-                    </div>
-
-                    <h2>
-                        Para você
-                    </h2>
-
-                    <div class="letter-line"></div>
-
-                </div>
-
-
-                <div
-                    class="letter-full-text"
-                    id="letterFullText"
-                >Muito obrigado por tudo, você me ensinou a amar de verdade. Eu te amei por quem você era e, principalmente, por quem você se tornou. Você é incrível, e me dói muito ter que te deixar, mas eu já percebi há tempos que você não me merecia. Meu amor foi verdadeiro, eu te amo e amei como nunca amei e nunca vou amar ninguém, mas o meu jeito neurótico acabou com tudo. Eu vi o quanto você lutou por nós, e eu realmente quis que fosse a gente, mas não deu certo. Eu só espero que você continue sendo esta pessoa incrível que você é, que cuidou de mim quando mais ninguém se importava, que ficou comigo mesmo eu explodindo e te tratando de uma forma terrível. Você é única, é realmente especial e, do fundo do meu coração, eu te peço perdão por tudo que eu te fiz, e espero, algum dia, poder te tocar novamente. Eu te amo para sempre. Se cuide, minha princesa. 🤍
-
-            </div>
-
-                <div class="letter-signature">
-                    Com carinho. Para helena
-                </div>
-
-
-                <div class="letter-actions">
-
-
-                    <button
-                        class="letter-button primary"
-                        id="timerBtn"
-                    >
-                        Ver nosso tempo
-                    </button>
-
-                </div>
-
-            </article>
-
-        </div>
-
-
-        <!-- TIMER -->
-
-        <section id="timer-reveal">
-
-            <div class="timer-content">
-
-                <small>
-                    o tempo que ficou
-                </small>
-
-                <h2>
-                    Nosso Tempo
-                </h2>
-
-                <p class="timer-subtitle">
-                    Cada segundo guardando uma lembrança.
-                </p>
+            <!-- CONTADOR -->
+            <section class="library-counter">
+                <div class="counter-ornament">✧</div>
+                <span class="counter-eyebrow">Quanto tempo até hoje?</span>
+                <h2>Nosso Tempo</h2>
 
                 <div class="timer-grid-final" id="finalTimerGrid">
-    <div class="timer-item-final">
-        <div class="num" id="f-months">03</div>
-        <div class="lbl">Meses</div>
-    </div>
-
-    <div class="timer-item-final">
-        <div class="num" id="f-days">24</div>
-        <div class="lbl">Dias</div>
-    </div>
-
-    <div class="timer-item-final">
-        <div class="num" id="f-hours">16</div>
-        <div class="lbl">Horas</div>
-    </div>
-
-    <div class="timer-item-final">
-        <div class="num" id="f-minutes">08</div>
-        <div class="lbl">Minutos</div>
-    </div>
-
-    <div class="timer-item-final">
-        <div class="num" id="f-seconds">54</div>
-        <div class="lbl">Segundos</div>
-    </div>
-</div>
-
-
-                <div class="timer-footer">
-                    uma história que existiu de verdade
+                    <div class="timer-item-final"><div class="num" id="f-months">00</div><div class="lbl">Meses</div></div>
+                    <div class="timer-item-final"><div class="num" id="f-days">00</div><div class="lbl">Dias</div></div>
+                    <div class="timer-item-final"><div class="num" id="f-hours">00</div><div class="lbl">Horas</div></div>
+                    <div class="timer-item-final"><div class="num" id="f-minutes">00</div><div class="lbl">Minutos</div></div>
+                    <div class="timer-item-final"><div class="num" id="f-seconds">00</div><div class="lbl">Segundos</div></div>
                 </div>
 
-                <span class="timer-heart">
-                    ♥
-                </span>
+                <div class="timer-footer">te amando cada vez mais</div>
+                <span class="timer-heart">♥</span>
+            </section>
+
+            <footer class="library-footer">be davi for helena <span>♥</span></footer>
+
+        </section>
+    </div>
+</main>
+
+<!-- ============================================================
+     LEITOR DE LIVRO — LIVRO 3D EM CSS
+     ============================================================ -->
+<div class="book-modal" id="bookModal" aria-hidden="true">
+
+    <button class="book-modal-close" id="closeBook" aria-label="Fechar livro">×</button>
+
+    <div class="book-stage">
+        <div class="book" id="bookElement">
+
+            <!-- PÁGINAS -->
+            <div class="book-pages">
+                <div class="page-inner" id="pageInner">
+                    <span class="page-category" id="bookCategory"></span>
+                    <h2 class="page-title" id="bookTitle"></h2>
+                    <div class="page-divider"></div>
+                    <p class="page-subtitle" id="bookSubtitle"></p>
+                    <p class="page-date" id="bookDate"></p>
+                    <div class="page-text" id="bookContent"></div>
+                    <div class="page-signature" id="bookSignature"></div>
+                </div>
+            </div>
+
+            <!-- CAPA (gira ao abrir) -->
+            <div class="book-cover" id="bookCover">
+
+                <div class="cover-face cover-front">
+                    <div class="cover-front-inner">
+                        <span class="cover-top">NOSSA HISTÓRIA</span>
+                        <span class="cover-ornament">✦</span>
+                        <h3 class="cover-title" id="coverTitle"></h3>
+                        <span class="cover-bottom" id="coverCategory">CARTA</span>
+                    </div>
+                </div>
+
+                <div class="cover-face cover-back">
+                    <span class="cover-back-mark">♥</span>
+                    <span class="cover-back-text">nossa história</span>
+                </div>
 
             </div>
 
-        </section>
-
+        </div>
     </div>
 
-</main>
+    <div class="book-navigation">
+        <button id="previousBook" type="button">← Anterior</button>
+        <span id="bookPosition"></span>
+        <button id="nextBook" type="button">Próxima →</button>
+    </div>
 
+</div>
+
+<!-- ============================================================
+     ÁLBUM DE FOTOGRAFIAS
+     ============================================================ -->
+<div class="photo-modal" id="photoModal" aria-hidden="true">
+
+    <button class="photo-close" id="closeAlbum" aria-label="Fechar álbum">×</button>
+
+    <div class="photo-viewer">
+
+        <div class="photo-viewer-heading">
+            <span>ÁLBUM DE MEMÓRIAS</span>
+            <h2>Nossos momentos</h2>
+        </div>
+
+        <div class="photo-stage">
+            <button class="photo-arrow previous" id="previousPhoto" aria-label="Foto anterior">‹</button>
+
+            <figure class="photo-figure">
+                <img id="slideshowImage" src="" alt="">
+                <figcaption>
+                    <span id="photoNumber"></span>
+                    <p id="photoCaption"></p>
+                </figcaption>
+            </figure>
+
+            <button class="photo-arrow next" id="nextPhoto" aria-label="Próxima foto">›</button>
+        </div>
+
+        <div class="photo-progress"><div id="photoProgressBar"></div></div>
+
+        <div class="photo-controls">
+            <button id="previousPhotoText">Anterior</button>
+            <span>DESLIZE OU USE AS SETAS</span>
+            <button id="nextPhotoText">Próxima</button>
+        </div>
+
+        <div class="photo-dots" id="photoDots"></div>
+
+    </div>
+</div>
 
 <script src="js/script.js"></script>
 

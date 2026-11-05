@@ -1,795 +1,907 @@
-const particles =
-document.getElementById("particles");
 
-for (let i = 0; i < 45; i++) {
+/* =========================================================
+   NOSSA HISTÓRIA — BIBLIOTECA, LIVROS 3D, ÁLBUM E CONTADOR
+   Dados externos: data/cartas.txt e data/dados.json
+   ========================================================= */
 
-const particle =
-    document.createElement("div");
+const $ = (id) => document.getElementById(id);
 
-particle.className = "particle";
+/* =========================================================
+   ESTADO DA APLICAÇÃO
+   ========================================================= */
 
-particle.style.left =
-    Math.random() * 100 + "%";
+let photosData = [];
+let lettersData = [];
+let spineVariants = [];
 
-particle.style.top =
-    Math.random() * 100 + "%";
+let START_DATE = new Date(2026, 4, 5, 0, 0, 0);
 
-particle.style.animationDuration =
-    (6 + Math.random() * 10) + "s";
+let currentLetterIndex = 0;
+let currentPhotoIndex = 0;
 
-particle.style.animationDelay =
-    (Math.random() * 8) + "s";
+let openingBookTimeout = null;
+let closeBookTimeout = null;
 
-particle.style.opacity =
-    0.15 + Math.random() * 0.5;
+let touchStartX = 0;
+let appInitialized = false;
 
-particles.appendChild(particle);
-
+function pad(n) {
+    return String(n).padStart(2, "0");
 }
 
-const cardsData = [
-
-{
-    img: "img/1.png",
-    caption: "Se eu pedir com educação, você morre?"
-},
-
-{
-    img: "img/2.jpg",
-    caption: "O dia do cinema"
-},
-
-{
-    img: "img/3.jpg",
-    caption: "Qnd comemos aborgue no shopping"
-},
-
-{
-    img: "img/4.jpg",
-    caption: "O dia que vc conheceu meus pais"
-},
-
-{
-    img: "img/5.jpg",
-    caption: "Brutus, aborgue top"
-},
-
-{
-    img: "img/6.jpg",
-    caption: "Esfiha, filme e coisax..."
-},
-
-{
-    img: "img/7.jpg",
-    caption: "O gay bundudo do jacomarkkkkkk"
-},
-
-{
-    img: "img/8.jpg",
-    caption: "Só vc dormindo no meu colo msm"
-},
-
-{
-    img: "img/9.jpg",
-    caption: "Vc deitada no meu pé e eu deitado no seu, troca justa!"
-},
-
-{
-    img: "img/10.jpg",
-    caption: "Essa foto ficou linda, pq há seu sorriso nela"
-},
-
-{
-    img: "img/11.jpg",
-    caption: "Única mulher que receberá flores de mim."
-},
-
-{
-    img: "img/12.jpg",
-    caption: "Esse dia foi inesquecível <3"
-},
-
-{
-    img: "img/13.jpg",
-    caption: "Só de olhar para essa flor, eu lembro de vc"
-},
-
-{
-    img: "img/14.jpg",
-    caption: "A NOSSA CALÇA SWAG!"
-},
-
-{
-    img: "img/15.jpg",
-    caption: "Chicão smpr entrosando"
-},
-
-{
-    img: "img/16.jpg",
-    caption: "Nesse dia, vc estava absurdamente linda"
-},
-
-{
-    img: "img/17.jpg",
-    caption: "Essa camisa já virou sua marca registrada kkkk"
-},
-
-{
-    img: "img/18.jpg",
-    caption: "Foi um trampo expandir essa foto, mas ficou linda"
-},
-
-{
-    img: "img/19.jpg",
-    caption: "KKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
-},
-
-{
-    img: "img/20.jpg",
-    caption: "Minha total versão feminina"
-},
-
-{
-    img: "img/21.jpg",
-    caption: "😡😡😡"
-},
-
-{
-    img: "img/22.jpg",
-    caption: "SKJDAOSDAO eu te amo amor!"
-},
-
-];
-
-let currentIndex = 0;
-
-const stack =
-document.getElementById(
-"card-stack"
-);
-
-const finalScreen =
-document.getElementById(
-"final-screen"
-);
-
-const timerReveal =
-document.getElementById(
-"timer-reveal"
-);
-
-function createCard(data, index, photoIndex) {
-
-const card =
-    document.createElement("div");
-
-card.className =
-    "tinder-card";
-
-card.dataset.index =
-    index;
-
-card.style.zIndex =
-    100 - index;
-
-card.style.transform =
-    `scale(${1 - index * 0.035})
-     translateY(${index * 7}px)`;
-
-card.style.opacity = "1";
-
-
-const img =
-    document.createElement("img");
-
-img.src = data.img;
-
-img.alt = data.caption;
-
-img.draggable = false;
-
-card.appendChild(img);
-
-
-const caption =
-    document.createElement("div");
-
-caption.className =
-    "caption";
-
-caption.innerHTML = `
-    <small>memória ${photoIndex + 1}</small>
-    <span>${data.caption}</span>
-`;
-
-card.appendChild(caption);
-
-
-const likeBadge =
-    document.createElement("div");
-
-likeBadge.className =
-    "badge like";
-
-card.appendChild(likeBadge);
-
-
-const nopeBadge =
-    document.createElement("div");
-
-nopeBadge.className =
-    "badge nope";
-
-card.appendChild(nopeBadge);
-
-
-return card;
-
-}
-
-function renderCards() {
-
-stack.innerHTML = "";
-
-const remaining =
-    cardsData.slice(
-        currentIndex
-    );
-
-
-if (!remaining.length) {
-
-    showFinalScreen();
-
-    return;
-}
-
-
-remaining.forEach(
-    (data, index) => {
-
-        const card =
-    createCard(
-        data,
-        index,
-        currentIndex + index
-    );
-
-stack.appendChild(card);
+/* =========================================================
+   CARREGAMENTO DOS ARQUIVOS EXTERNOS
+   ========================================================= */
+
+async function loadExternalData() {
+    try {
+        const [lettersResponse, dataResponse] = await Promise.all([
+            fetch("data/cartas.txt"),
+            fetch("data/dados.json")
+        ]);
+
+        if (!lettersResponse.ok) {
+            throw new Error(
+                `Erro ao carregar cartas.txt: HTTP ${lettersResponse.status}`
+            );
+        }
+
+        if (!dataResponse.ok) {
+            throw new Error(
+                `Erro ao carregar dados.json: HTTP ${dataResponse.status}`
+            );
+        }
+
+        const [lettersText, config] = await Promise.all([
+            lettersResponse.text(),
+            dataResponse.json()
+        ]);
+
+        lettersData = parseLettersTXT(lettersText);
+
+        photosData = Array.isArray(config.photos)
+            ? config.photos
+            : [];
+
+        spineVariants = Array.isArray(config.spineVariants)
+            ? config.spineVariants
+            : [];
+
+        if (config.startDate) {
+            const parsedDate = new Date(config.startDate);
+
+            if (!Number.isNaN(parsedDate.getTime())) {
+                START_DATE = parsedDate;
+            } else {
+                console.warn("[Contador] Data inicial inválida. Usando padrão.");
+            }
+        }
+
+        console.info(
+            `[Biblioteca] ${lettersData.length} carta(s) carregada(s).`
+        );
+
+        console.info(
+            `[Álbum] ${photosData.length} fotografia(s) carregada(s).`
+        );
+
+        return true;
+
+    } catch (error) {
+        console.error("[Inicialização] Falha ao carregar dados:", error);
+        return false;
     }
-);
-
-
-const topCard =
-    stack.querySelector(
-        ".tinder-card:first-child"
-    );
-
-
-if (topCard) {
-
-    initSwipe(topCard);
 }
 
+/* =========================================================
+   INTERPRETADOR DO TXT
+   Formato:
+   
+   ---CARTA---
+   id: identificador
+   category: Cartas
+   title: Título
+   subtitle: Subtítulo
+   date: Data
+   signature: Assinatura
+
+   Conteúdo da carta...
+
+   ---FIM---
+   ========================================================= */
+
+function parseLettersTXT(text) {
+    return text
+        .split("---CARTA---")
+        .map(block => block.trim())
+        .filter(block => block.includes("---FIM---"))
+        .map(block => {
+            const content = block.split("---FIM---")[0].trim();
+
+            const separator = content.search(/\r?\n\s*\r?\n/);
+
+            if (separator === -1) {
+                console.warn(
+                    "[Cartas] Carta ignorada: cabeçalho sem separação do conteúdo."
+                );
+
+                return null;
+            }
+
+            const header = content.slice(0, separator);
+            const body = content.slice(separator).trim();
+
+            const metadata = {};
+
+            header.split(/\r?\n/).forEach(line => {
+                const separatorIndex = line.indexOf(":");
+
+                if (separatorIndex === -1) return;
+
+                const key = line
+                    .slice(0, separatorIndex)
+                    .trim()
+                    .toLowerCase();
+
+                const value = line
+                    .slice(separatorIndex + 1)
+                    .trim();
+
+                metadata[key] = value;
+            });
+
+            if (!metadata.id || !metadata.title || !body) {
+                console.warn(
+                    "[Cartas] Carta ignorada: ID, título ou conteúdo ausente."
+                );
+
+                return null;
+            }
+
+            return {
+                id: metadata.id,
+                category: metadata.category || "Cartas",
+                title: metadata.title,
+                subtitle: metadata.subtitle || "",
+                date: metadata.date || "",
+                signature: metadata.signature || "",
+                content: body
+            };
+        })
+        .filter(Boolean);
 }
 
-function initSwipe(card) {
+/* =========================================================
+   PARTÍCULAS
+   ========================================================= */
 
-let startX = 0;
-let startY = 0;
+function initializeParticles() {
+    const particles = $("particles");
 
-let dragging = false;
+    if (!particles) return;
 
+    particles.innerHTML = "";
 
-const likeBadge =
-    card.querySelector(
-        ".badge.like"
-    );
+    for (let i = 0; i < 45; i++) {
+        const p = document.createElement("div");
 
-const nopeBadge =
-    card.querySelector(
-        ".badge.nope"
-    );
+        p.className = "particle";
 
+        p.style.left = `${Math.random() * 100}%`;
+        p.style.top = `${Math.random() * 100}%`;
 
-function start(event) {
+        p.style.animationDuration =
+            `${6 + Math.random() * 10}s`;
 
-    if (
-        event.type === "mousedown" &&
-        event.button !== 0
-    ) {
+        p.style.animationDelay =
+            `${Math.random() * 8}s`;
+
+        p.style.opacity =
+            String(0.15 + Math.random() * 0.5);
+
+        particles.appendChild(p);
+    }
+}
+
+/* =========================================================
+   BIBLIOTECA — ELEMENTOS
+   ========================================================= */
+
+const libraryCategories = $("library-categories");
+const libraryCount = $("library-count");
+const categoryCount = $("category-count");
+const libraryEmpty = $("library-empty");
+
+/* =========================================================
+   BIBLIOTECA — RENDERIZA LIVROS
+   ========================================================= */
+
+function renderLibrary() {
+    if (!libraryCategories) {
+        console.warn("[Biblioteca] Elemento #library-categories não encontrado.");
         return;
     }
 
+    libraryCategories.innerHTML = "";
 
-    dragging = true;
+    const groups = new Map();
 
-    startX =
-        event.clientX;
+    lettersData.forEach(letter => {
+        if (!groups.has(letter.category)) {
+            groups.set(letter.category, []);
+        }
 
-    startY =
-        event.clientY;
+        groups.get(letter.category).push(letter);
+    });
 
-
-    card.style.transition =
-        "none";
-}
-
-
-function move(event) {
-
-    if (!dragging) return;
-
-
-    const dx =
-        event.clientX - startX;
-
-    const dy =
-        event.clientY - startY;
-
-
-    const rotation =
-        dx * 0.055;
-
-
-    card.style.transform =
-        `translate(${dx}px, ${dy * 0.25}px)
-         rotate(${rotation}deg)`;
-
-
-    const strength =
-        Math.min(
-            Math.abs(dx) / 120,
-            1
-        );
-
-
-    if (dx > 0) {
-
-        likeBadge.style.opacity =
-            strength;
-
-        nopeBadge.style.opacity =
-            0;
-
-    } else if (dx < 0) {
-
-        nopeBadge.style.opacity =
-            strength;
-
-        likeBadge.style.opacity =
-            0;
-
-    } else {
-
-        likeBadge.style.opacity = 0;
-        nopeBadge.style.opacity = 0;
-    }
-}
-
-
-function end(event) {
-
-    if (!dragging) return;
-
-    dragging = false;
-
-
-    const dx =
-        event.clientX - startX;
-
-
-    const threshold = 105;
-
-
-    card.style.transition =
-        "transform .55s cubic-bezier(.16,1,.3,1), opacity .4s ease";
-
-
-    if (dx > threshold) {
-
-        card.style.transform =
-            `translateX(${window.innerWidth * 1.25}px)
-             rotate(20deg)`;
-
-        card.style.opacity = "0";
-
-
-        removeCard();
-
-    } else if (dx < -threshold) {
-
-        card.style.transform =
-            `translateX(-${window.innerWidth * 1.25}px)
-             rotate(-20deg)`;
-
-        card.style.opacity = "0";
-
-
-        removeCard();
-
-    } else {
-
-        const index =
-            Number(card.dataset.index);
-
-
-        card.style.transform =
-            `scale(${1 - index * 0.035})
-             translateY(${index * 7}px)`;
-
-
-        card.style.opacity = "1";
+    if (libraryCount) {
+        libraryCount.textContent =
+            `${lettersData.length} ${
+                lettersData.length === 1 ? "carta" : "cartas"
+            }`;
     }
 
+    if (categoryCount) {
+        categoryCount.textContent =
+            `${groups.size} ${
+                groups.size === 1 ? "categoria" : "categorias"
+            }`;
+    }
 
-    likeBadge.style.opacity = 0;
-    nopeBadge.style.opacity = 0;
-}
+    if (libraryEmpty) {
+        libraryEmpty.hidden = lettersData.length !== 0;
+    }
 
+    groups.forEach((letters, categoryName) => {
+        const section = document.createElement("section");
 
-function removeCard() {
+        section.className = "library-category";
 
-    setTimeout(() => {
+        const heading = document.createElement("div");
 
-        currentIndex++;
+        heading.className = "category-heading";
 
-        renderCards();
+        const title = document.createElement("h3");
 
-    }, 380);
-}
+        title.textContent = categoryName;
 
+        const amount = document.createElement("span");
 
-card.addEventListener(
-    "pointerdown",
-    start
-);
+        amount.textContent =
+            `${String(letters.length).padStart(2, "0")} ${
+                letters.length === 1 ? "carta" : "cartas"
+            }`;
 
-card.addEventListener(
-    "pointermove",
-    move
-);
+        heading.append(title, amount);
 
-card.addEventListener(
-    "pointerup",
-    end
-);
+        const shelf = document.createElement("div");
 
-card.addEventListener(
-    "pointercancel",
-    end
-);
+        shelf.className = "shelf";
 
-}
+        const shelfBooks = document.createElement("div");
 
-function showFinalScreen() {
+        shelfBooks.className = "shelf-books";
 
-stack.style.display =
-    "none";
+        letters.forEach((letter, index) => {
+            const variant = spineVariants.length
+                ? spineVariants[index % spineVariants.length]
+                : {
+                    w: 40,
+                    h: 180,
+                    a: "var(--spine-1a)",
+                    b: "var(--spine-1b)"
+                };
 
-finalScreen.style.display =
-    "flex";
+            const book = document.createElement("button");
 
-initEnvelope();
+            book.type = "button";
+            book.className = "book-spine";
 
-}
+            book.dataset.letterId = letter.id;
 
-
-let envelopeInitialized =
-false;
-
-function initEnvelope() {
-
-if (envelopeInitialized) {
-    return;
-}
-
-envelopeInitialized = true;
-
-
-const flap =
-    document.getElementById(
-        "envelopeFlap"
-    );
-
-const modal =
-    document.getElementById(
-        "letterModal"
-    );
-
-
-flap.addEventListener(
-    "click",
-    () => {
-
-        /*
-         * Primeiro abre somente
-         * o envelope.
-         *
-         * Não existe carta dentro
-         * do DOM visual do envelope.
-         */
-
-        flap.classList.add(
-            "open"
-        );
-
-
-        /*
-         * Depois da animação,
-         * mostra a carta.
-         */
-
-        setTimeout(() => {
-
-            modal.classList.add(
-                "active"
+            book.setAttribute(
+                "aria-label",
+                `Abrir o livro: ${letter.title}`
             );
 
-        }, 800);
-    }
-);
+            book.style.setProperty("--w", `${variant.w}px`);
+            book.style.setProperty("--h", `${variant.h}px`);
+            book.style.setProperty("--t", variant.a);
+            book.style.setProperty("--b", variant.b);
 
+            const ornament = document.createElement("span");
+
+            ornament.className = "spine-ornament";
+            ornament.textContent = "✦";
+
+            const spineTitle = document.createElement("span");
+
+            spineTitle.className = "spine-title";
+            spineTitle.textContent = letter.title;
+
+            const number = document.createElement("span");
+
+            number.className = "spine-number";
+            number.textContent = String(index + 1).padStart(2, "0");
+
+            book.append(ornament, spineTitle, number);
+
+            shelfBooks.appendChild(book);
+        });
+
+        shelf.appendChild(shelfBooks);
+
+        section.append(heading, shelf);
+
+        libraryCategories.appendChild(section);
+    });
 }
 
 /* =========================================================
-LETTER
-========================================================= */
+   LEITOR DE LIVRO 3D — ELEMENTOS
+   ========================================================= */
 
-const modal =
-document.getElementById(
-"letterModal"
-);
+const bookModal = $("bookModal");
+const bookElement = $("bookElement");
+const bookCover = $("bookCover");
+const pageInner = $("pageInner");
 
-const closeModalBtn =
-document.getElementById(
-"closeModalBtn"
-);
+const closeBookBtn = $("closeBook");
 
-const timerBtn =
-document.getElementById(
-"timerBtn"
-);
+const bookCategory = $("bookCategory");
+const bookTitle = $("bookTitle");
+const bookSubtitle = $("bookSubtitle");
+const bookDate = $("bookDate");
+const bookContent = $("bookContent");
+const bookSignature = $("bookSignature");
+
+const coverTitle = $("coverTitle");
+const coverCategory = $("coverCategory");
+
+const bookPosition = $("bookPosition");
+
+const prevBookBtn = $("previousBook");
+const nextBookBtn = $("nextBook");
 
 /* =========================================================
-CLOSE LETTER
-========================================================= */
+   LEITOR — ABRIR LIVRO
+   ========================================================= */
 
-if (closeModalBtn) {
-    closeModalBtn.addEventListener(
-    "click",
-    () => {
+function openBook(index) {
+    if (!lettersData.length || !bookModal || !bookElement) {
+        return;
+    }
+    const readerWasOpen = bookModal.classList.contains("active");
+    clearTimeout(closeBookTimeout);
+    clearTimeout(openingBookTimeout);
 
-        modal.classList.remove(
-            "active"
+    currentLetterIndex =
+        (index + lettersData.length) % lettersData.length;
+
+    const letter = lettersData[currentLetterIndex];
+
+    /* Conteúdo da página */
+
+    if (bookCategory) {
+        bookCategory.textContent = letter.category.toUpperCase();
+    }
+
+    if (bookTitle) {
+        bookTitle.textContent = letter.title;
+    }
+
+    if (bookSubtitle) {
+        bookSubtitle.textContent = letter.subtitle || "";
+    }
+
+    if (bookDate) {
+        bookDate.textContent = letter.date || "";
+    }
+
+    if (bookContent) {
+        bookContent.textContent = letter.content;
+    }
+
+    if (bookSignature) {
+        bookSignature.textContent = letter.signature || "";
+
+        bookSignature.style.display =
+            letter.signature ? "block" : "none";
+    }
+
+    /* Conteúdo da capa */
+
+    if (coverTitle) {
+        coverTitle.textContent = letter.title;
+    }
+
+    if (coverCategory) {
+        coverCategory.textContent = letter.category.toUpperCase();
+    }
+
+    /* Navegação */
+
+    if (bookPosition) {
+        bookPosition.textContent =
+            `${pad(currentLetterIndex + 1)} / ${pad(lettersData.length)}`;
+    }
+
+    if (prevBookBtn) {
+        prevBookBtn.disabled = lettersData.length < 2;
+    }
+
+    if (nextBookBtn) {
+        nextBookBtn.disabled = lettersData.length < 2;
+    }
+
+    /* Reset de scroll */
+
+    if (pageInner) {
+        pageInner.scrollTop = 0;
+    }
+
+    /* Reset da capa somente na abertura inicial */
+
+    if (!readerWasOpen) {
+        bookElement.classList.remove("opened");
+    }
+
+    /* Abrir modal */
+
+    bookModal.classList.add("active");
+
+    bookModal.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("reader-open");
+
+    if (closeBookBtn) {
+        closeBookBtn.focus();
+    }
+
+    /* Abrir a capa somente na primeira abertura */
+
+    if (!readerWasOpen) {
+        openingBookTimeout = setTimeout(() => {
+            bookElement.classList.add("opened");
+        }, 500);
+    }
+}
+
+/* =========================================================
+   LEITOR — FECHAR LIVRO
+   ========================================================= */
+
+function closeBook() {
+    if (!bookModal || !bookElement) return;
+
+    clearTimeout(openingBookTimeout);
+
+    bookElement.classList.remove("opened");
+
+    clearTimeout(closeBookTimeout);
+
+    closeBookTimeout = setTimeout(() => {
+        bookModal.classList.remove("active");
+
+        bookModal.setAttribute("aria-hidden", "true");
+
+        document.body.classList.remove("reader-open");
+    }, 750);
+}
+
+/* =========================================================
+   LEITOR — EVENTOS
+   ========================================================= */
+
+if (libraryCategories) {
+    libraryCategories.addEventListener("click", event => {
+        const book = event.target.closest("[data-letter-id]");
+
+        if (!book) return;
+
+        book.classList.add("lifting");
+
+        setTimeout(() => {
+            book.classList.remove("lifting");
+
+            const index = lettersData.findIndex(
+                letter => letter.id === book.dataset.letterId
+            );
+
+            if (index !== -1) {
+                openBook(index);
+            }
+        }, 400);
+    });
+}
+
+if (closeBookBtn) {
+    closeBookBtn.addEventListener("click", closeBook);
+}
+
+if (bookModal) {
+    bookModal.addEventListener("click", event => {
+        if (event.target === bookModal) {
+            closeBook();
+        }
+    });
+}
+
+if (bookCover) {
+    bookCover.addEventListener("click", () => {
+        if (
+            bookElement &&
+            !bookElement.classList.contains("opened")
+        ) {
+            bookElement.classList.add("opened");
+        }
+    });
+}
+
+if (prevBookBtn) {
+    prevBookBtn.addEventListener("click", () => {
+        openBook(currentLetterIndex - 1);
+    });
+}
+
+if (nextBookBtn) {
+    nextBookBtn.addEventListener("click", () => {
+        openBook(currentLetterIndex + 1);
+    });
+}
+
+/* =========================================================
+   ÁLBUM DE FOTOGRAFIAS — ELEMENTOS
+   ========================================================= */
+
+const photoModal = $("photoModal");
+const slideshowImage = $("slideshowImage");
+const photoCaption = $("photoCaption");
+const photoNumber = $("photoNumber");
+
+const photoProgressBar = $("photoProgressBar");
+const photoDots = $("photoDots");
+
+const openAlbumButton = $("openAlbum");
+const closeAlbumButton = $("closeAlbum");
+
+const previousPhotoBtn = $("previousPhoto");
+const nextPhotoBtn = $("nextPhoto");
+
+const previousPhotoText = $("previousPhotoText");
+const nextPhotoText = $("nextPhotoText");
+
+/* =========================================================
+   ÁLBUM — INDICADORES
+   ========================================================= */
+
+function renderPhotoDots() {
+    if (!photoDots) return;
+
+    photoDots.innerHTML = "";
+
+    photosData.forEach((_, index) => {
+        const dot = document.createElement("button");
+
+        dot.type = "button";
+
+        dot.className = "photo-dot";
+
+        dot.setAttribute(
+            "aria-label",
+            `Ir para a foto ${index + 1}`
         );
+
+        dot.addEventListener("click", () => {
+            currentPhotoIndex = index;
+            renderPhoto();
+        });
+
+        photoDots.appendChild(dot);
+    });
+}
+
+/* =========================================================
+   ÁLBUM — RENDERIZAR FOTOGRAFIA
+   ========================================================= */
+
+function renderPhoto() {
+    if (!photosData.length) return;
+
+    const photo = photosData[currentPhotoIndex];
+
+    if (!photo) return;
+
+    if (slideshowImage) {
+        slideshowImage.style.opacity = "0";
+
+        const newImage = new Image();
+
+        newImage.onload = () => {
+            slideshowImage.src = photo.img;
+            slideshowImage.alt = photo.caption || "";
+            slideshowImage.style.opacity = "1";
+        };
+
+        newImage.onerror = () => {
+            slideshowImage.removeAttribute("src");
+            slideshowImage.alt = "Imagem não encontrada";
+            slideshowImage.style.opacity = "1";
+
+            console.warn(
+                `[Álbum] Não foi possível carregar: ${photo.img}`
+            );
+        };
+
+        newImage.src = photo.img;
     }
 
-    );
-}
+    if (photoCaption) {
+        photoCaption.textContent = photo.caption || "";
+    }
 
-/* =========================================================
-CLICK OUTSIDE
-========================================================= */
+    if (photoNumber) {
+        photoNumber.textContent =
+            `MEMÓRIA ${pad(currentPhotoIndex + 1)} / ${pad(photosData.length)}`;
+    }
 
-modal.addEventListener(
-"click",
-(event) => {
+    if (photoProgressBar) {
+        photoProgressBar.style.width =
+            `${((currentPhotoIndex + 1) / photosData.length) * 100}%`;
+    }
 
-    if (
-        event.target === modal
-    ) {
-
-        modal.classList.remove(
-            "active"
-        );
+    if (photoDots) {
+        [...photoDots.children].forEach((dot, index) => {
+            dot.classList.toggle(
+                "active",
+                index === currentPhotoIndex
+            );
+        });
     }
 }
 
-);
+/* =========================================================
+   ÁLBUM — ABRIR E FECHAR
+   ========================================================= */
+
+function openAlbum() {
+    if (!photoModal || !photosData.length) return;
+
+    currentPhotoIndex = 0;
+
+    renderPhotoDots();
+    renderPhoto();
+
+    photoModal.classList.add("active");
+
+    photoModal.setAttribute("aria-hidden", "false");
+
+    document.body.classList.add("album-open");
+}
+
+function closeAlbum() {
+    if (!photoModal) return;
+
+    photoModal.classList.remove("active");
+
+    photoModal.setAttribute("aria-hidden", "true");
+
+    document.body.classList.remove("album-open");
+}
 
 /* =========================================================
-ESC
-========================================================= */
+   ÁLBUM — NAVEGAÇÃO
+   ========================================================= */
 
-document.addEventListener(
-"keydown",
-(event) => {
+function changePhoto(direction) {
+    if (!photosData.length) return;
 
-    if (
-        event.key === "Escape"
-    ) {
+    currentPhotoIndex =
+        (currentPhotoIndex + direction + photosData.length) %
+        photosData.length;
 
-        modal.classList.remove(
-            "active"
-        );
+    renderPhoto();
+}
+
+if (openAlbumButton) {
+    openAlbumButton.addEventListener("click", openAlbum);
+}
+
+if (closeAlbumButton) {
+    closeAlbumButton.addEventListener("click", closeAlbum);
+}
+
+if (previousPhotoBtn) {
+    previousPhotoBtn.addEventListener("click", () => {
+        changePhoto(-1);
+    });
+}
+
+if (nextPhotoBtn) {
+    nextPhotoBtn.addEventListener("click", () => {
+        changePhoto(1);
+    });
+}
+
+if (previousPhotoText) {
+    previousPhotoText.addEventListener("click", () => {
+        changePhoto(-1);
+    });
+}
+
+if (nextPhotoText) {
+    nextPhotoText.addEventListener("click", () => {
+        changePhoto(1);
+    });
+}
+
+if (photoModal) {
+    photoModal.addEventListener("click", event => {
+        if (event.target === photoModal) {
+            closeAlbum();
+        }
+    });
+}
+
+/* =========================================================
+   ÁLBUM — DESLIZAR NO CELULAR
+   ========================================================= */
+
+const photoStage = document.querySelector(".photo-stage");
+
+if (photoStage) {
+    photoStage.addEventListener("touchstart", event => {
+        touchStartX = event.changedTouches[0].screenX;
+    }, { passive: true });
+
+    photoStage.addEventListener("touchend", event => {
+        const diff =
+            event.changedTouches[0].screenX - touchStartX;
+
+        if (Math.abs(diff) > 50) {
+            changePhoto(diff < 0 ? 1 : -1);
+        }
+    }, { passive: true });
+}
+
+/* =========================================================
+   TECLADO
+   ========================================================= */
+
+document.addEventListener("keydown", event => {
+    if (bookModal && bookModal.classList.contains("active")) {
+        if (event.key === "Escape") {
+            closeBook();
+        }
+
+        if (event.key === "ArrowLeft") {
+            openBook(currentLetterIndex - 1);
+        }
+
+        if (event.key === "ArrowRight") {
+            openBook(currentLetterIndex + 1);
+        }
+
+        return;
     }
-}
 
-);
+    if (photoModal && photoModal.classList.contains("active")) {
+        if (event.key === "Escape") {
+            closeAlbum();
+        }
 
-/* =========================================================
-TIMER
-========================================================= */
+        if (event.key === "ArrowLeft") {
+            changePhoto(-1);
+        }
 
-timerBtn.addEventListener(
-"click",
-() => {
-
-    modal.classList.remove(
-        "active"
-    );
-
-
-    setTimeout(() => {
-
-        finalScreen.style.display =
-            "none";
-
-        timerReveal.style.display =
-            "flex";
-
-        showFinalTimer();
-
-    }, 350);
-}
-
-);
+        if (event.key === "ArrowRight") {
+            changePhoto(1);
+        }
+    }
+});
 
 /* =========================================================
-TIMER CALCULATION
-========================================================= */
+   CONTADOR AO VIVO
+   Início configurável em data/dados.json
+   ========================================================= */
 
-function showFinalTimer() {
-    const start = new Date(2026, 4, 5, 0, 0, 0);
-    const end = new Date(2026, 7, 29, 16, 8, 56);
+function calculateElapsedParts(startDate, endDate) {
+    if (endDate <= startDate) {
+        return {
+            months: 0,
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+        };
+    }
 
-    let cursor = new Date(start);
+    let cursor = new Date(startDate);
 
-    let years = 0;
     let months = 0;
     let days = 0;
 
     while (true) {
-        const next = new Date(cursor);
-        next.setMonth(next.getMonth() + 1);
+        const nextMonth = new Date(cursor);
 
-        if (next <= end) {
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+        if (nextMonth <= endDate) {
+            cursor = nextMonth;
             months++;
-            cursor = next;
         } else {
             break;
         }
     }
 
     while (true) {
-        const next = new Date(cursor);
-        next.setDate(next.getDate() + 1);
+        const nextDay = new Date(cursor);
 
-        if (next <= end) {
-            cursor = next;
+        nextDay.setDate(nextDay.getDate() + 1);
+
+        if (nextDay <= endDate) {
+            cursor = nextDay;
             days++;
         } else {
             break;
         }
     }
 
-    const remainingMs = end - cursor;
-
-    const hours = Math.floor(
-        remainingMs / (1000 * 60 * 60)
+    const remaining = Math.max(
+        0,
+        Math.floor((endDate - cursor) / 1000)
     );
 
-    const minutes = Math.floor(
-        (remainingMs % (1000 * 60 * 60)) /
-        (1000 * 60)
-    );
-
-    const seconds = Math.floor(
-        (remainingMs % (1000 * 60)) /
-        1000
-    );
-
-    const values = {
-        months: months,
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds
+    return {
+        months,
+        days,
+        hours: Math.floor(remaining / 3600),
+        minutes: Math.floor((remaining % 3600) / 60),
+        seconds: remaining % 60
     };
+}
 
-    Object.entries(values).forEach(([key, target]) => {
-        const el = document.getElementById(`f-${key}`);
+function updateLiveCounter() {
+    const values = calculateElapsedParts(
+        START_DATE,
+        new Date()
+    );
 
-        let current = 0;
-        const step = Math.max(1, Math.ceil(target / 25));
+    Object.entries(values).forEach(([unit, value]) => {
+        const element = $(`f-${unit}`);
 
-        const interval = setInterval(() => {
-            current += step;
-
-            if (current >= target) {
-                current = target;
-                clearInterval(interval);
-            }
-
-            el.textContent = String(current).padStart(2, '0');
-        }, 25);
+        if (element) {
+            element.textContent = pad(value);
+        }
     });
 }
 
 /* =========================================================
-TIMER ANIMATION
-========================================================= */
+   INICIALIZAÇÃO
+   ========================================================= */
 
-function animateNumber(
-id,
-target
-) {
+async function initializeApp() {
+    if (appInitialized) return;
 
-const element =
-    document.getElementById(
-        id
-    );
+    appInitialized = true;
 
+    initializeParticles();
 
-const duration = 700;
+    const loaded = await loadExternalData();
 
-const startTime =
-    performance.now();
-
-
-function update(now) {
-
-    const progress =
-        Math.min(
-            (now - startTime) /
-            duration,
-            1
+    if (!loaded) {
+        console.error(
+            "[Nossa História] A aplicação não conseguiu carregar os dados externos."
         );
-
-
-    const eased =
-        1 -
-        Math.pow(
-            1 - progress,
-            3
-        );
-
-
-    const value =
-        Math.floor(
-            target * eased
-        );
-
-
-    element.textContent =
-        String(value)
-            .padStart(2, "0");
-
-
-    if (progress < 1) {
-
-        requestAnimationFrame(
-            update
-        );
-
-    } else {
-
-        element.textContent =
-            String(target)
-                .padStart(2, "0");
     }
+
+    renderLibrary();
+
+    updateLiveCounter();
+
+    setInterval(updateLiveCounter, 1000);
+
+    console.info("[Nossa História] Inicialização concluída.");
 }
 
-
-requestAnimationFrame(
-    update
-);
-
-}
-
-/* =========================================================
-START
-========================================================= */
-
-renderCards();
+initializeApp();

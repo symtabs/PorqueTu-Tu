@@ -1,0 +1,119 @@
+{
+    "startDate": "2026-05-05T00:00:00",
+    "spineVariants": [
+        {
+            "w": 38,
+            "h": 185,
+            "a": "var(--spine-1a)",
+            "b": "var(--spine-1b)"
+        },
+        {
+            "w": 42,
+            "h": 175,
+            "a": "var(--spine-2a)",
+            "b": "var(--spine-2b)"
+        },
+        {
+            "w": 35,
+            "h": 195,
+            "a": "var(--spine-3a)",
+            "b": "var(--spine-3b)"
+        },
+        {
+            "w": 40,
+            "h": 180,
+            "a": "var(--spine-4a)",
+            "b": "var(--spine-4b)"
+        }
+    ],
+    "photos": [
+        {
+            "img": "img/1.png",
+            "caption": "Se eu pedir com educação, você morre?"
+        },
+        {
+            "img": "img/2.jpg",
+            "caption": "O dia do cinema"
+        },
+        {
+            "img": "img/3.jpg",
+            "caption": "Qnd comemos aborgue no shopping"
+        },
+        {
+            "img": "img/4.jpg",
+            "caption": "O dia que vc conheceu meus pais"
+        },
+        {
+            "img": "img/5.jpg",
+            "caption": "Brutus, aborgue top"
+        },
+        {
+            "img": "img/6.jpg",
+            "caption": "Esfiha, filme e coisax..."
+        },
+        {
+            "img": "img/7.jpg",
+            "caption": "O gay bundudo do jacomarkkkkkk"
+        },
+        {
+            "img": "img/8.jpg",
+            "caption": "Só vc dormindo no meu colo msm"
+        },
+        {
+            "img": "img/9.jpg",
+            "caption": "Vc deitada no meu pé e eu deitado no seu, troca justa!"
+        },
+        {
+            "img": "img/10.jpg",
+            "caption": "Essa foto ficou linda, pq há seu sorriso nela"
+        },
+        {
+            "img": "img/11.jpg",
+            "caption": "Única mulher que receberá flores de mim."
+        },
+        {
+            "img": "img/12.jpg",
+            "caption": "Esse dia foi inesquecível <3"
+        },
+        {
+            "img": "img/13.jpg",
+            "caption": "Só de olhar para essa flor, eu lembro de vc"
+        },
+        {
+            "img": "img/14.jpg",
+            "caption": "A NOSSA CALÇA SWAG!"
+        },
+        {
+            "img": "img/15.jpg",
+            "caption": "Chicão smpr entrosando"
+        },
+        {
+            "img": "img/16.jpg",
+            "caption": "Nesse dia, vc estava absurdamente linda"
+        },
+        {
+            "img": "img/17.jpg",
+            "caption": "Essa camisa já virou sua marca registrada kkkk"
+        },
+        {
+            "img": "img/18.jpg",
+            "caption": "Foi um trampo expandir essa foto, mas ficou linda"
+        },
+        {
+            "img": "img/19.jpg",
+            "caption": "KKKKKKKKKKKKKKKKKKKKKKKKKKKKK"
+        },
+        {
+            "img": "img/20.jpg",
+            "caption": "Minha total versão feminina"
+        },
+        {
+            "img": "img/21.jpg",
+            "caption": "😡😡😡"
+        },
+        {
+            "img": "img/22.jpg",
+            "caption": "SKJDAOSDAO eu te amo amor!"
+        }
+    ]
+}
